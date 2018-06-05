@@ -1,6 +1,6 @@
 package Code;
 
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 public class Main {
 
@@ -9,19 +9,12 @@ public class Main {
 		Matematica m = new Matematica();
 		Pergunta p = m.getPergunta();
 		
-		String info = p.getEnunciado() + "\n\n";
+		JFrame frame = new JFrame();
+		frame.setSize(416, 339);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		String[] alternativas = p.getAlternativas();
+		frame.add(p.getInterface()[0]);
 		
-		for (int i = 0; i < alternativas.length; i++) {
-			
-			info += (i + 1) + ". " + alternativas[i] + "\n";
-		}
-		
-		info += "\n\nInforme sua resposta";
-		
-		int opt = Integer.parseInt(JOptionPane.showInputDialog(info));
-		
-		System.out.println(p.validarResposta(alternativas[opt - 1]));
+		frame.setVisible(true);
 	}
 }
