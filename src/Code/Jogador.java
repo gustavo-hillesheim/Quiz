@@ -58,6 +58,19 @@ public class Jogador {
     listaSemTempo.add(this);
   }
 
+  // Getters
+  public String getNome() {
+    return nome;
+  }
+
+  public Integer getNumAcertos() {
+    return numAcertos;
+  }
+
+  public Double getTempo() {
+    return tempo;
+  }
+
   // O construtor do jogador usa apenas o nome
   public Jogador(String nome) {
     this.nome = nome;
