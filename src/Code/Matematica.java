@@ -35,10 +35,14 @@ public class Matematica extends Categoria {
 		
 		do {
 			
+			//Gera dois números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
+			
+			//Gera uma operação aleatório
 			int op = random.nextInt(4) + 1;
 			
+			//Verifica qual operação foi randomizada e faz o cálculo da resposta
 			switch (op) {
 			
 				case 1: {
@@ -64,6 +68,7 @@ public class Matematica extends Categoria {
 					break;
 				}
 			}
+		//Verifica se a questão já foi randomizada antes
 		} while (enunUsados.indexOf(enun) != -1);
 		
 		enunUsados.add(enun);
@@ -90,10 +95,14 @@ public class Matematica extends Categoria {
 		
 		while (alternativa == correta) {
 			
+			//Gera 2 números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
+			
+			//Gera uma operação aleatória
 			int op = random.nextInt(4) + 1;
 			
+			//Verifica qual operação foi gerada e faz o cálculo do resultado
 			switch (op) {
 			
 				case 1: {

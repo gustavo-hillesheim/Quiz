@@ -40,18 +40,14 @@ public class Pergunta {
 
 	public boolean validarResposta(String resposta) {
 		
-		if (resposta.equals(correta)) {
-			
-			return true;
-		} else {
-			
-			return false;
-		}
+		return resposta.equals(correta);
 	}
 	
 	private String[] embaralharAlternativas() {
 		
 		String[] alternativas = new String[this.alternativas.length];
+		
+		//Arraylist que vai ser utilizado para que verificar quais indexes já foram utilizados
 		ArrayList<Integer> indexUsados = new ArrayList<>();
 		
 		Random random = new Random();
@@ -59,7 +55,8 @@ public class Pergunta {
 		for (int i = 0; i < alternativas.length; i++) {
 			
 			int index = 0;
-			
+		
+			//Randomizando index até que encontre algum que não foi utilizado
 			do {
 				
 				index = random.nextInt(alternativas.length);
@@ -75,14 +72,16 @@ public class Pergunta {
 
 	public JComponent[] getInterface() {
 		
-		JComponent[] comps = new JComponent[5];
+		JComponent[] comps = new JComponent[6];
 		
+		//Iniciando Painél onde ficarão os componentes
 		JPanel pane = new JPanel();
 		pane.setSize(400, 300);
 		pane.setLayout(null);
 		
 		comps[0] = pane;
 		
+		//Iniciando e configurando label da pergunta
 		lblTitulo = new JLabel(getEnunciado());
 		lblTitulo.setLocation(15,  15);
 		
@@ -93,10 +92,14 @@ public class Pergunta {
 		
 		pane.add(lblTitulo);
 		
+		comps[1] = lblTitulo;
+		
+		//Grupo para que os radio buttons funcionem direito
 		ButtonGroup group = new ButtonGroup();
 		
 		String[] alternativas = getAlternativas();
 		
+		//Iniciando os botões 
 		for (int i = 0; i < 4; i++) {
 			
 			buttons[i] = new JRadioButton(alternativas[i]);
@@ -107,12 +110,13 @@ public class Pergunta {
 			
 			buttons[i].setSize(btnWidth, btnHeight);
 			
-			comps[i+1] = buttons[i];
+			comps[i+2] = buttons[i];
 			
 			group.add(buttons[i]);
 			pane.add(buttons[i]);
 		}
 		
+		//Botão para exemplo
 		JButton btn = new JButton("VALIDAR");
 		btn.setBounds(150, 200, 100, 25);
 		btn.addActionListener(new ActionListener() {
@@ -131,10 +135,13 @@ public class Pergunta {
 
 	public boolean validarResposta() {
 		
+		//Passa por todos os Radio Buttons
 		for (JRadioButton btn : buttons) {
 			
+			//Verifica se o botão está selecionado
 			if (btn.isSelected()) {
 				
+				//Verifica se o texto do botão é igual à resposta correta
 				if (btn.getText().equals(correta)) {
 					
 					return true;
