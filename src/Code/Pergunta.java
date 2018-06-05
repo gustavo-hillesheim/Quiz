@@ -70,16 +70,12 @@ public class Pergunta {
 		return alternativas;
 	}
 
-	public JComponent[] getInterface() {
-		
-		JComponent[] comps = new JComponent[6];
+	public JPanel getInterface() {
 		
 		//Iniciando Painél onde ficarão os componentes
 		JPanel pane = new JPanel();
 		pane.setSize(400, 300);
 		pane.setLayout(null);
-		
-		comps[0] = pane;
 		
 		//Iniciando e configurando label da pergunta
 		lblTitulo = new JLabel(getEnunciado());
@@ -91,8 +87,6 @@ public class Pergunta {
 		lblTitulo.setSize(lblWidth, lblHeight);
 		
 		pane.add(lblTitulo);
-		
-		comps[1] = lblTitulo;
 		
 		//Grupo para que os radio buttons funcionem direito
 		ButtonGroup group = new ButtonGroup();
@@ -109,8 +103,6 @@ public class Pergunta {
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
 			
 			buttons[i].setSize(btnWidth, btnHeight);
-			
-			comps[i+2] = buttons[i];
 			
 			group.add(buttons[i]);
 			pane.add(buttons[i]);
@@ -130,7 +122,7 @@ public class Pergunta {
 	
 		pane.add(btn);
 		
-		return comps;
+		return pane;
 	}
 
 	public boolean validarResposta() {

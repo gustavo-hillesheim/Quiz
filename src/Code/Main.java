@@ -13,7 +13,7 @@ public class Main {
 		frame.setSize(416, 339);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.add(p.getInterface()[0]);
+		frame.add(p.getInterface());
 		
 		frame.setVisible(true);
 	}
