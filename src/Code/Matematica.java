@@ -75,7 +75,7 @@ public class Matematica extends Categoria {
 
 	private String[] gerarAlternativas(double correta) {
 		
-		return new String[] {String.valueOf(correta), gerarAlternativa(correta), gerarAlternativa(correta), gerarAlternativa(correta), gerarAlternativa(correta)};
+		return new String[] {String.valueOf(correta), gerarAlternativa(correta), gerarAlternativa(correta), gerarAlternativa(correta)};
 	}
 	
 	private String gerarAlternativa(double correta) {
