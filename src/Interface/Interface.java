@@ -15,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
-import com.sun.java.util.jar.pack.Package.Class.Method;
-
 public class Interface {
 
 	public Interface(){
@@ -126,7 +124,7 @@ public class Interface {
 		//Heanding
 		JLabel lblHome = setLabelIcon(0, 0, "Home", "src/Interface/img/house.png", 40, 40);
 		
-		lblHome.addMouseListener(ChangeCursor(janela, Main.invoke));
+		lblHome.addMouseListener(ChangeCursor(janela));
 
 		
 		JLabel lblTitle = new JLabel("Ranking");
@@ -203,7 +201,7 @@ public class Interface {
 	        timer.start();
 	}
 	
-	private static MouseListener ChangeCursor(Frame janela, Method metodo) {
+	private static MouseListener ChangeCursor(Frame janela) {
 		
 		MouseListener action = new MouseListener() {
 			
@@ -233,8 +231,6 @@ public class Interface {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
 				
 				
 			}
