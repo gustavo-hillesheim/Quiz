@@ -7,7 +7,7 @@ public class Bizarro extends Categoria {
   // Array de enunciados
   private static String[] enunciados = {
       "O que o imperador Claus permitiu que as pessoas fizessem num banquete, por questões de saúde pública?",
-      "Por 150 reais, você pode obter uma licensa para ser o que no Texas?",
+      "Por 150 reais, você pode obter uma licença para ser o que no Texas?",
       "O que é ilegal trazer num duelo no Massachusetts?",
       "Por lei, o que é proibido nos restaurantes do Japão?",
       "De acordo com um censo de 2000 no reino unido, o que agora é considerado uma religião?",

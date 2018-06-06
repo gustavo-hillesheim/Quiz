@@ -18,6 +18,7 @@ public class Pergunta {
 	private String[] alternativas;
 	
 	private static JTextArea lblTitulo;
+	private static JLabel lblTitulo;
 	private static JRadioButton[] buttons = new JRadioButton[4];
 	
 	public Pergunta(String enunciado, String[] alternativas) {
@@ -46,7 +47,7 @@ public class Pergunta {
 		
 		String[] alternativas = new String[this.alternativas.length];
 		
-		//Arraylist que vai ser utilizado para que verificar quais indexes j� foram utilizados
+		//Arraylist que vai ser utilizado para que verificar quais indexes jï¿½ foram utilizados
 		ArrayList<Integer> indexUsados = new ArrayList<>();
 		
 		Random random = new Random();
@@ -55,7 +56,7 @@ public class Pergunta {
 			
 			int index = 0;
 		
-			//Randomizando index at� que encontre algum que n�o foi utilizado
+			//Randomizando index atï¿½ que encontre algum que nï¿½o foi utilizado
 			do {
 				
 				index = random.nextInt(alternativas.length);
@@ -79,7 +80,12 @@ public class Pergunta {
 		lblTitulo.setEditable(false);
 		lblTitulo.setLineWrap(true);
 		lblTitulo.setWrapStyleWord(true);
-				
+
+	public void atualizarPanel() {
+		
+		lblTitulo.setText(getEnunciado());
+		lblTitulo.setLocation(15,  15);
+		
 		int lblWidth = (int) lblTitulo.getPreferredSize().getWidth();
 		int lblHeight = (int) lblTitulo.getPreferredSize().getHeight();
 				
@@ -87,12 +93,13 @@ public class Pergunta {
 		
 		String[] alternativas = getAlternativas();
 		
-		//Iniciando os botões 
+		//Iniciando os botÃµes 
 		for (int i = 0; i < 4; i++) {
 			
 			buttons[i].setText(alternativas[i]);
 			buttons[i].setLocation(95, 65 + 30 * (i + 1));
 			buttons[i].setFont(new Font("Georgean", Font.BOLD, 13));
+			buttons[i].setLocation(15, 30 + 30 * (i + 1));
 			
 			int btnWidth = (int) buttons[i].getPreferredSize().getWidth();
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
@@ -104,7 +111,7 @@ public class Pergunta {
 	
 	public JPanel getInterface() {
 							
-		//Iniciando Painél onde ficarão os componentes
+		//Iniciando PainÃ©l onde ficarÃ£o os componentes
 		JPanel pane = new JPanel();
 		pane.setBounds(0, 0, 700, 250);
 		pane.setLayout(null);
@@ -131,6 +138,33 @@ public class Pergunta {
 				
 		atualizarPanel();
 
+		
+		//Iniciando Painél onde ficarão os componentes
+		JPanel pane = new JPanel();
+		pane.setSize(400, 300);
+		pane.setLayout(null);
+		
+		if (lblTitulo == null) {
+			
+			//Iniciando e configurando label da pergunta
+			lblTitulo = new JLabel();		
+			
+			//Grupo para que os radio buttons funcionem direito
+			ButtonGroup group = new ButtonGroup();
+			
+			for (int i = 0; i < 4; i++) {
+				
+				buttons[i] = new JRadioButton();
+				
+				group.add(buttons[i]);
+				pane.add(buttons[i]);
+			}
+			
+			pane.add(lblTitulo);
+		}
+		
+		atualizarPanel();
+		
 		return pane;
 	}
 
@@ -139,10 +173,10 @@ public class Pergunta {
 		//Passa por todos os Radio Buttons
 		for (JRadioButton btn : buttons) {
 			
-			//Verifica se o bot�o est� selecionado
+			//Verifica se o botï¿½o estï¿½ selecionado
 			if (btn.isSelected()) {
 				
-				//Verifica se o texto do bot�o � igual � resposta correta
+				//Verifica se o texto do botï¿½o ï¿½ igual ï¿½ resposta correta
 				if (btn.getText().equals(correta)) {
 					
 					return true;
