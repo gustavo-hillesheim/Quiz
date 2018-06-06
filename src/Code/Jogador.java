@@ -22,7 +22,7 @@ public class Jogador {
     // seguida pelo tempo de jogo.
     comparadorJogador = (jogador1, jogador2) -> jogador1.numAcertos.compareTo(jogador2.numAcertos);
     comparadorJogador = comparadorJogador.thenComparing(
-            (jogador1, jogador2) -> jogador1.tempo.compareTo(jogador2.tempo));
+            (jogador1, jogador2) -> jogador2.tempo.compareTo(jogador1.tempo));
   }
 
   // Retorna uma lista ordenada dos jogadores com tempo. A lista é ordenada
@@ -37,7 +37,7 @@ public class Jogador {
   }
 
   public static List<Jogador> listarJogadoresSemTempo() {
-    List<Jogador> jogadores = listaComTempo;
+    List<Jogador> jogadores = listaSemTempo;
     // Ordena a lista.
     jogadores.sort(comparadorJogador);
 
