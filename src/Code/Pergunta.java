@@ -16,174 +16,137 @@ public class Pergunta {
 	private String enunciado;
 	private String correta;
 	private String[] alternativas;
-	
+
 	private static JTextArea lblTitulo;
-	private static JLabel lblTitulo;
 	private static JRadioButton[] buttons = new JRadioButton[4];
-	
+
 	public Pergunta(String enunciado, String[] alternativas) {
-		
+
 		this.enunciado = enunciado;
 		this.correta = alternativas[0];
 		this.alternativas = alternativas;
 	}
-	
+
 	public String getEnunciado() {
-		
+
 		return this.enunciado;
 	}
-	
+
 	public String[] getAlternativas() {
-		
+
 		return embaralharAlternativas();
 	}
 
 	public boolean validarResposta(String resposta) {
-		
+
 		return resposta.equals(correta);
 	}
-	
+
 	private String[] embaralharAlternativas() {
-		
+
 		String[] alternativas = new String[this.alternativas.length];
-		
-		//Arraylist que vai ser utilizado para que verificar quais indexes jï¿½ foram utilizados
+
+		// Arraylist que vai ser utilizado para que verificar quais indexes jï¿½ foram
+		// utilizados
 		ArrayList<Integer> indexUsados = new ArrayList<>();
-		
+
 		Random random = new Random();
-		
+
 		for (int i = 0; i < alternativas.length; i++) {
-			
+
 			int index = 0;
-		
-			//Randomizando index atï¿½ que encontre algum que nï¿½o foi utilizado
+
+			// Randomizando index atï¿½ que encontre algum que nï¿½o foi utilizado
 			do {
-				
+
 				index = random.nextInt(alternativas.length);
 			} while (indexUsados.indexOf(index) != -1);
-			
+
 			indexUsados.add(index);
-			
+
 			alternativas[i] = this.alternativas[index];
 		}
-		
+
 		return alternativas;
 	}
 	
 	public void atualizarPanel() {
-		
-		//Iniciando e configurando label da pergunta
+
+		// Iniciando e configurando label da pergunta
 		lblTitulo.setText(getEnunciado());
-		lblTitulo.setBounds(50,25,610,25);
+		lblTitulo.setBounds(50, 25, 610, 25);
 		lblTitulo.setFont(new Font("Gerogean", Font.BOLD, 20));
-		lblTitulo.setBackground(new Color(202,204,206));
+		lblTitulo.setBackground(new Color(202, 204, 206));
 		lblTitulo.setEditable(false);
 		lblTitulo.setLineWrap(true);
 		lblTitulo.setWrapStyleWord(true);
 
-	public void atualizarPanel() {
-		
-		lblTitulo.setText(getEnunciado());
-		lblTitulo.setLocation(15,  15);
-		
-		int lblWidth = (int) lblTitulo.getPreferredSize().getWidth();
-		int lblHeight = (int) lblTitulo.getPreferredSize().getHeight();
-				
-		lblTitulo.setSize(lblWidth, lblHeight);
-		
 		String[] alternativas = getAlternativas();
-		
-		//Iniciando os botÃµes 
+
+		// Iniciando os botÃµes
 		for (int i = 0; i < 4; i++) {
-			
+
 			buttons[i].setText(alternativas[i]);
 			buttons[i].setLocation(95, 65 + 30 * (i + 1));
 			buttons[i].setFont(new Font("Georgean", Font.BOLD, 13));
 			buttons[i].setLocation(15, 30 + 30 * (i + 1));
-			
+
 			int btnWidth = (int) buttons[i].getPreferredSize().getWidth();
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
-			
+
 			buttons[i].setSize(btnWidth, btnHeight);
 			buttons[i].setOpaque(false);
 		}
 	}
-	
+
 	public JPanel getInterface() {
-							
-		//Iniciando PainÃ©l onde ficarÃ£o os componentes
+
+		// Iniciando PainÃ©l onde ficarÃ£o os componentes
 		JPanel pane = new JPanel();
 		pane.setBounds(0, 0, 700, 250);
 		pane.setLayout(null);
 		pane.setOpaque(false);
-				
+
 		if (lblTitulo == null) {
-					
-			//Iniciando e configurando label da pergunta
-			lblTitulo = new JTextArea();		
-					
-			//Grupo para que os radio buttons funcionem direito
+
+			// Iniciando e configurando label da pergunta
+			lblTitulo = new JTextArea();
+
+			// Grupo para que os radio buttons funcionem direito
 			ButtonGroup group = new ButtonGroup();
-					
+
 			for (int i = 0; i < 4; i++) {
-						
+
 				buttons[i] = new JRadioButton();
-						
+
 				group.add(buttons[i]);
 				pane.add(buttons[i]);
 			}
-					
+
 			pane.add(lblTitulo);
 		}
-				
+
 		atualizarPanel();
 
-		
-		//Iniciando Painél onde ficarão os componentes
-		JPanel pane = new JPanel();
-		pane.setSize(400, 300);
-		pane.setLayout(null);
-		
-		if (lblTitulo == null) {
-			
-			//Iniciando e configurando label da pergunta
-			lblTitulo = new JLabel();		
-			
-			//Grupo para que os radio buttons funcionem direito
-			ButtonGroup group = new ButtonGroup();
-			
-			for (int i = 0; i < 4; i++) {
-				
-				buttons[i] = new JRadioButton();
-				
-				group.add(buttons[i]);
-				pane.add(buttons[i]);
-			}
-			
-			pane.add(lblTitulo);
-		}
-		
-		atualizarPanel();
-		
 		return pane;
 	}
 
 	public boolean validarResposta() {
-		
-		//Passa por todos os Radio Buttons
+
+		// Passa por todos os Radio Buttons
 		for (JRadioButton btn : buttons) {
-			
-			//Verifica se o botï¿½o estï¿½ selecionado
+
+			// Verifica se o botï¿½o estï¿½ selecionado
 			if (btn.isSelected()) {
-				
-				//Verifica se o texto do botï¿½o ï¿½ igual ï¿½ resposta correta
+
+				// Verifica se o texto do botï¿½o ï¿½ igual ï¿½ resposta correta
 				if (btn.getText().equals(correta)) {
-					
+
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }
