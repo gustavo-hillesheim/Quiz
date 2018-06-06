@@ -17,7 +17,7 @@ public class Matematica extends Categoria {
 		
 		Object[] enunResul = gerarEnunciado();
 		String enunciado = (String) enunResul[0];
-		int resultado = (Integer) enunResul[1];
+		double resultado = (Double) enunResul[1];
 		
 		String[] alternativas = gerarAlternativas(resultado);
 		
@@ -35,31 +35,31 @@ public class Matematica extends Categoria {
 		
 		do {
 			
-			int n1 = random.nextInt(100) + 1;
-			int n2 = random.nextInt(100) + 1;
+			double n1 = random.nextInt(100) + 1;
+			double n2 = random.nextInt(100) + 1;
 			int op = random.nextInt(4) + 1;
 			
 			switch (op) {
 			
 				case 1: {
-					enun = n1 + " + " + n2;
+					enun = (int)n1 + " + " + (int)n2;
 					resul = n1 + n2;
 					break;
 				}
 		
 				case 2: {
-					enun = n1 + " - " + n2;
+					enun = (int)n1 + " - " + (int)n2;
 					resul = n1 - n2;
 					break;
 				}
 		
 				case 3: {
-					enun = n1 + " x " + n2;
+					enun = (int)n1 + " x " + (int)n2;
 					resul = n1 * n2;
 					break;
 				}
 				case 4: {
-					enun = n1 + " ÷ " + n2;
+					enun = (int)n1 + " ÷ " + (int)n2;
 					resul = n1 / n2;
 					break;
 				}
@@ -75,7 +75,11 @@ public class Matematica extends Categoria {
 
 	private String[] gerarAlternativas(double correta) {
 		
-		return new String[] {String.valueOf(correta), gerarAlternativa(correta), gerarAlternativa(correta), gerarAlternativa(correta)};
+		String alt2 = gerarAlternativa(correta);
+		String alt3 = gerarAlternativa(correta);
+		String alt4 = gerarAlternativa(correta);
+		
+		return new String[] {String.valueOf(correta), alt2, alt3, alt4};
 	}
 	
 	private String gerarAlternativa(double correta) {
@@ -86,8 +90,8 @@ public class Matematica extends Categoria {
 		
 		while (alternativa == correta) {
 			
-			int n1 = random.nextInt(100) + 1;
-			int n2 = random.nextInt(100) + 1;
+			double n1 = random.nextInt(100) + 1;
+			double n2 = random.nextInt(100) + 1;
 			int op = random.nextInt(4) + 1;
 			
 			switch (op) {
