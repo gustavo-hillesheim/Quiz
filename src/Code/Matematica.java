@@ -18,8 +18,9 @@ public class Matematica extends Categoria {
 		Object[] enunResul = gerarEnunciado();
 		String enunciado = (String) enunResul[0];
 		double resultado = (Double) enunResul[1];
+		int operacao = (Integer) enunResul[2];
 		
-		String[] alternativas = gerarAlternativas(resultado);
+		String[] alternativas = gerarAlternativas(resultado, operacao);
 		
 		Pergunta p = new Pergunta(enunciado, alternativas);
 		
@@ -32,13 +33,18 @@ public class Matematica extends Categoria {
 		
 		String enun = "";
 		double resul = 0;
+		int op = 0;
 		
 		do {
 			
+			//Gera dois números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
-			int op = random.nextInt(4) + 1;
 			
+			//Gera uma operação aleatório
+			op = random.nextInt(4) + 1;
+			
+			//Verifica qual operação foi randomizada e faz o cálculo da resposta
 			switch (op) {
 			
 				case 1: {
@@ -64,25 +70,31 @@ public class Matematica extends Categoria {
 					break;
 				}
 			}
+		//Verifica se a questão já foi randomizada antes
 		} while (enunUsados.indexOf(enun) != -1);
 		
 		enunUsados.add(enun);
 		
-		Object[] enunResul = {enun, resul};
+		String resulFormat = String.format("%.2f", resul).replace(',', '.');
+		
+		Object[] enunResul = {enun, Double.parseDouble(resulFormat), op};
 		
 		return enunResul;
 	}
 
-	private String[] gerarAlternativas(double correta) {
+	private String[] gerarAlternativas(double correta, int operacao) {
 		
-		String alt2 = gerarAlternativa(correta);
-		String alt3 = gerarAlternativa(correta);
-		String alt4 = gerarAlternativa(correta);
+		String alt2 = gerarAlternativa(correta, operacao);
+		String alt3 = gerarAlternativa(correta, operacao);
+		String alt4 = gerarAlternativa(correta, operacao);
 		
-		return new String[] {String.valueOf(correta), alt2, alt3, alt4};
+		//Verifica se a parte inteira da resposta é igual a parte real dela
+		String corretaFormat = (int) correta == correta ? String.valueOf((int) correta) : String.valueOf(correta);
+		
+		return new String[] {corretaFormat, alt2, alt3, alt4};
 	}
 	
-	private String gerarAlternativa(double correta) {
+	private String gerarAlternativa(double correta, int operacao) {
 		
 		double alternativa = correta;
 		
@@ -90,11 +102,12 @@ public class Matematica extends Categoria {
 		
 		while (alternativa == correta) {
 			
+			//Gera 2 números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
-			int op = random.nextInt(4) + 1;
 			
-			switch (op) {
+			//Verifica qual operação foi gerada e faz o cálculo do resultado
+			switch (operacao) {
 			
 				case 1: {
 					alternativa = n1 + n2;
@@ -112,9 +125,13 @@ public class Matematica extends Categoria {
 					alternativa = n1 / n2;
 				}
 			}
+			
+			String altFormat = String.format("%.2f", alternativa).replace(',', '.');
+			
+			alternativa = Double.parseDouble(altFormat);
 		}
 		
-		return String.valueOf(alternativa);
-		
+		//Verifica se a parte inteira do resultado é igual a parte real
+		return (int) alternativa == alternativa ? String.valueOf((int) alternativa) : String.valueOf(alternativa);	
 	}
 }
