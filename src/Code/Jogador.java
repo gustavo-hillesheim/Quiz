@@ -13,16 +13,16 @@ public class Jogador {
   private static Comparator<Jogador> comparadorJogador;
   private String nome;
   private Integer numAcertos;
-  private Double tempo; // Nem sei se é double, mas enfim; É o tempo que o
-  private String tempoString; // jogador demorou no jogo.
+  private Integer tempo; // Nem sei se � double, mas enfim; � o tempo que o
+  						// jogador demorou no jogo.
 
   // Inicializa o comparador
   static {
     // Instrui o comparador para primeiro comparar pelo número de acertos e em
     // seguida pelo tempo de jogo.
-    comparadorJogador = (jogador1, jogador2) -> jogador1.numAcertos.compareTo(jogador2.numAcertos);
+    comparadorJogador = (jogador1, jogador2) -> jogador2.numAcertos.compareTo(jogador1.numAcertos);
     comparadorJogador = comparadorJogador.thenComparing(
-            (jogador1, jogador2) -> jogador2.tempo.compareTo(jogador1.tempo));
+            (jogador1, jogador2) -> jogador1.tempo.compareTo(jogador2.tempo));
   }
 
   // Retorna uma lista ordenada dos jogadores com tempo. A lista é ordenada
@@ -45,17 +45,16 @@ public class Jogador {
   }
 
   // Métodos para quando o jogador termina o quizz. Registra o desempenho dele
-  public void finalizarJogo(Integer numAcertos, Double tempo, String tempoString) {
+  public void finalizarJogo(Integer numAcertos, Integer tempo) {
     this.numAcertos = numAcertos;
     this.tempo = tempo;
-    this.tempoString = tempoString;
     listaComTempo.add(this);
   }
 
   // Quando o jogador não jogou com o timer ligado, acionar esse
   public void finalizarJogo(Integer numAcertos) {
     this.numAcertos = numAcertos;
-    this.tempo = 0.0;
+    this.tempo = 0;
     listaSemTempo.add(this);
   }
 
@@ -68,13 +67,22 @@ public class Jogador {
     return numAcertos;
   }
 
-  public Double getTempo() {
+  public Integer getTempo() {
     return tempo;
   }
   
   public String getTempoString() {
 	  
-	  return this.tempoString;
+	  return converterTempo();
+  }
+  
+  private String converterTempo() {
+	  
+	  int minutos = ((int) this.tempo) / 60;
+	  String min = String.format("%02d", minutos);
+	  String seg = String.format("%02d", this.tempo - (minutos * 60));
+	  
+	  return min + ":" + seg;
   }
 
   // O construtor do jogador usa apenas o nome

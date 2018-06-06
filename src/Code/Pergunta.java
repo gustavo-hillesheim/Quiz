@@ -1,12 +1,9 @@
 package Code;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -17,8 +14,8 @@ public class Pergunta {
 	private String correta;
 	private String[] alternativas;
 	
-	private JLabel lblTitulo;
-	private JRadioButton[] buttons = new JRadioButton[4];
+	private static JLabel lblTitulo;
+	private static JRadioButton[] buttons = new JRadioButton[4];
 	
 	public Pergunta(String enunciado, String[] alternativas) {
 		
@@ -69,15 +66,9 @@ public class Pergunta {
 		return alternativas;
 	}
 
-	public JPanel getInterface() {
+	public void atualizarPanel() {
 		
-		//Iniciando Painél onde ficarão os componentes
-		JPanel pane = new JPanel();
-		pane.setSize(400, 300);
-		pane.setLayout(null);
-		
-		//Iniciando e configurando label da pergunta
-		lblTitulo = new JLabel(getEnunciado());
+		lblTitulo.setText(getEnunciado());
 		lblTitulo.setLocation(15,  15);
 		
 		int lblWidth = (int) lblTitulo.getPreferredSize().getWidth();
@@ -85,41 +76,48 @@ public class Pergunta {
 		
 		lblTitulo.setSize(lblWidth, lblHeight);
 		
-		pane.add(lblTitulo);
-		
-		//Grupo para que os radio buttons funcionem direito
-		ButtonGroup group = new ButtonGroup();
-		
 		String[] alternativas = getAlternativas();
 		
 		//Iniciando os botões 
 		for (int i = 0; i < 4; i++) {
 			
-			buttons[i] = new JRadioButton(alternativas[i]);
+			buttons[i].setText(alternativas[i]);
 			buttons[i].setLocation(15, 30 + 30 * (i + 1));
 			
 			int btnWidth = (int) buttons[i].getPreferredSize().getWidth();
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
 			
 			buttons[i].setSize(btnWidth, btnHeight);
+		}
+	}
+	
+	public JPanel getInterface() {
+		
+		//Iniciando Painél onde ficarão os componentes
+		JPanel pane = new JPanel();
+		pane.setSize(400, 300);
+		pane.setLayout(null);
+		
+		if (lblTitulo == null) {
 			
-			group.add(buttons[i]);
-			pane.add(buttons[i]);
+			//Iniciando e configurando label da pergunta
+			lblTitulo = new JLabel();		
+			
+			//Grupo para que os radio buttons funcionem direito
+			ButtonGroup group = new ButtonGroup();
+			
+			for (int i = 0; i < 4; i++) {
+				
+				buttons[i] = new JRadioButton();
+				
+				group.add(buttons[i]);
+				pane.add(buttons[i]);
+			}
+			
+			pane.add(lblTitulo);
 		}
 		
-		//Botão para exemplo
-		JButton btn = new JButton("VALIDAR");
-		btn.setBounds(150, 200, 100, 25);
-		btn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(validarResposta());
-			}
-		});
-	
-		pane.add(btn);
+		atualizarPanel();
 		
 		return pane;
 	}
