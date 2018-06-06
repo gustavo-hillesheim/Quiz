@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
-
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -47,7 +47,7 @@ public class Interface {
 		lblCateg.setBounds(50,215,120,25);
 		
 		Object[] cat = {
-				"Matem�tica",
+				"Matem�tica",
 				"Bizarro",
 				"Anime"
 		};
@@ -138,15 +138,22 @@ public class Interface {
 		lblRank.setBounds(285,235, rank.getIconWidth(), rank.getIconHeight());
 		lblRank.setToolTipText("Rank");
 		
+		// Sugestão, trocar o bloco abaixo pela chamada do método getIcone
 		ImageIcon start = new ImageIcon("src/Interface/play.png");
 		image = start.getImage();
 		newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); 
-		start = new ImageIcon(newimg);		
+		start = new ImageIcon(newimg);	
 		
+		// Proposta
+		start = getIcone("src/Interface/play.png", 100, 100, java.awt.Image.SCALE_SMOOTH);
+		
+		// Sugestão, Substituir esses trechos por um método que já incorpora a configuração
 		JLabel lblStart = new JLabel(start);
 		lblStart.setBounds(405,200, start.getIconWidth(), start.getIconHeight());
 		lblStart.setToolTipText("Start");
 		
+		// Proposta
+		lblStart = getLabelIcone(start, 405, 200, "Start");
 		
 		
 		janela.add(lblJump);
@@ -155,5 +162,27 @@ public class Interface {
 		janela.setVisible(true);
 		
 		System.out.println(janela.getSize());
+	}
+	
+	private static ImageIcon getIcone(String localIcone, int largura, int altura, int hints) {
+	  ImageIcon icone = new ImageIcon(localIcone);
+      Image image = icone.getImage();
+      image = image.getScaledInstance(largura, altura,  hints); 
+      icone = new ImageIcon(image);
+      return icone;
+	}
+	
+	private static JLabel getLabelIcone(Icon icone, int x, int y, String texto) {
+	  JLabel lbl = new JLabel(icone);
+	  lbl.setBounds(x,y, icone.getIconWidth(), icone.getIconHeight());
+	  lbl.setToolTipText(texto);
+	  return lbl;
+	}
+	
+	// Se quiser, dá até pra unir os dois
+	private static JLabel labelComIcone(String localIcone, int largura, int altura, int hints, int x, int y, String texto) {
+	  ImageIcon icone = getIcone(localIcone, largura, altura, hints);
+	  JLabel label = getLabelIcone(icone, x, y, texto);
+	  return label;
 	}
 }
