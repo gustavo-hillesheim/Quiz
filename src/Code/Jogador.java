@@ -14,7 +14,7 @@ public class Jogador {
   private String nome;
   private Integer numAcertos;
   private Double tempo; // Nem sei se é double, mas enfim; É o tempo que o
-                        // jogador demorou no jogo.
+  private String tempoString; // jogador demorou no jogo.
 
   // Inicializa o comparador
   static {
@@ -45,9 +45,10 @@ public class Jogador {
   }
 
   // Métodos para quando o jogador termina o quizz. Registra o desempenho dele
-  public void finalizarJogo(Integer numAcertos, Double tempo) {
+  public void finalizarJogo(Integer numAcertos, Double tempo, String tempoString) {
     this.numAcertos = numAcertos;
     this.tempo = tempo;
+    this.tempoString = tempoString;
     listaComTempo.add(this);
   }
 
@@ -70,9 +71,19 @@ public class Jogador {
   public Double getTempo() {
     return tempo;
   }
+  
+  public String getTempoString() {
+	  
+	  return this.tempoString;
+  }
 
   // O construtor do jogador usa apenas o nome
   public Jogador(String nome) {
     this.nome = nome;
+  }
+  
+  public Object[] getInfo() {
+	  
+	  return new Object[] {getNome(), getTempoString(), getNumAcertos()};
   }
 }
