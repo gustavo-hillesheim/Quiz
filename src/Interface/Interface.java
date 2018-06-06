@@ -16,10 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 public class Interface {
+	
+	private static JLabel lblTimer = new JLabel();
+	private static JLabel lblHourGlass = new JLabel();
 
 	public Interface(){
 		
-		Ranking();
+		Question();
 
 	}
 	
@@ -50,14 +53,98 @@ public class Interface {
 		JComboBox<String> cbxCateg = new JComboBox(cat);
 		cbxCateg.setBounds(50,240,120,25);	
 		
-		//ClockEnable/Disable
-		JLabel lblClock = setLabelIcon(350, 235, "Time", "src/Interface/img/clock.png", 50, 50);		
+		//Clock Enable/Disable
+		JLabel lblClock = setLabelIcon(350, 235, "Time", "src/Interface/img/clock.png", 50, 50);
 		
+		JLabel lblSwitchOff = setLabelIcon(363, 215, "Time", "src/Interface/img/switchOff.png", 20, 13);
+		
+		JLabel lblSwitchOn = setLabelIcon(363, 215, "Time", "src/Interface/img/switchOn.png", 20, 13);
+		lblSwitchOn.setVisible(changeView());
+		
+		lblSwitchOff.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				lblSwitchOff.setVisible(false);
+				lblSwitchOn.setVisible(true);
+			}
+		});
+		
+		lblSwitchOn.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				lblSwitchOn.setVisible(false);
+				lblSwitchOff.setVisible(true);
+			}
+		});
+	
 		//ShowRank
 		JLabel lblRank = setLabelIcon(285, 235, "Rank", "src/Interface/img/rank.png", 50, 50);
+		
+		lblRank.addMouseListener(EventLabel(janela, () -> Ranking()));
 
 		//BeginQuiz
 		JLabel lblStart = setLabelIcon(405, 200, "Start", "src/Interface/img/play.png", 100, 100);
+		
+		lblStart.addMouseListener(EventLabel(janela, new Inter() {
+			
+			@Override
+			public void run() {
+				
+				verifyIfTimer(lblSwitchOn);
+				Question();
+		}}));
 
 		janela.add(lblLogo, Frame.MIDDLE_TOP);		
 		janela.add(lblUser);
@@ -66,6 +153,8 @@ public class Interface {
 		janela.add(cbxCateg);
 		janela.add(lblStart);
 		janela.add(lblClock);
+		janela.add(lblSwitchOn);
+		janela.add(lblSwitchOff);
 		janela.add(lblRank);
 	
 		janela.setVisible(true);
@@ -84,21 +173,25 @@ public class Interface {
 		
 		//Pular pergunta
 		JLabel lblJump = setLabelIcon(450, 255, "Jump", "src/Interface/img/jump.png", 75, 75);
+		
+		lblJump.addMouseListener(EventLabel(janela, () -> Question()));
 
 		//Ajuda
+		JLabel lblHelp = setLabelIcon(320, 255, "Help", "src/Interface/img/flag.png", 80, 80);
 		
 		//Próximo/Responder
-		JLabel lblNext = setLabelIcon(200, 257, "Next", "src/Interface/img/next.png", 70, 70);
+		JLabel lblNext = setLabelIcon(200, 259, "Next", "src/Interface/img/next.png", 65, 65);
 
+		lblNext.addMouseListener(EventLabel(janela, () -> Question()));
 		
 		//ImgCronometro
 		ImageIcon hourglass = new ImageIcon("src/Interface/img/timer.gif");
 		
-		JLabel lblHourGlass = new JLabel(hourglass);
+		lblHourGlass.setIcon(hourglass);
 		lblHourGlass.setBounds(20,265,hourglass.getIconWidth(), hourglass.getIconHeight());
-		
+				
 		//CronometroItself
-		JLabel lblTimer = new JLabel("30:00min");
+		lblTimer.setText("30:00min");
 		lblTimer.setFont(new Font("Georgean", Font.BOLD, 15));
 		lblTimer.setBounds(15, 305, 120,25);
 		
@@ -107,6 +200,7 @@ public class Interface {
 		//Colocar pergunta
 		
 		janela.add(lblJump);
+		janela.add(lblHelp);
 		janela.add(lblNext);
 		janela.add(lblHourGlass);
 		janela.add(lblTimer);
@@ -124,8 +218,7 @@ public class Interface {
 		//Heanding
 		JLabel lblHome = setLabelIcon(0, 0, "Home", "src/Interface/img/house.png", 40, 40);
 		
-		lblHome.addMouseListener(ChangeCursor(janela));
-
+		lblHome.addMouseListener(EventLabel(janela, () -> Main()));
 		
 		JLabel lblTitle = new JLabel("Ranking");
 		lblTitle.setFont(new Font("Georgean", Font.BOLD, 35));
@@ -174,6 +267,21 @@ public class Interface {
 	private static int currentMinuto = 30;
 	private static int speed = 1000;
 	
+	private static void verifyIfTimer(JLabel lblSwitchOn) {
+		
+		boolean valida;
+		
+		if(lblSwitchOn.isVisible() == true) {
+			
+			valida = true;
+			
+		}else {
+			
+			valida = false;
+		}
+
+	}
+	
 	private static void Timer(JLabel label) {
 		
 		Timer timer;
@@ -201,7 +309,20 @@ public class Interface {
 	        timer.start();
 	}
 	
-	private static MouseListener ChangeCursor(Frame janela) {
+	private static boolean changeView() {
+		
+		boolean valida = true;
+		
+		if(valida == false) {
+			valida = true;
+		}else {
+			valida=false;
+		}
+		
+		return valida;
+	}
+	
+	private static MouseListener EventLabel(Frame janela, Inter metodo) {
 		
 		MouseListener action = new MouseListener() {
 			
@@ -232,11 +353,20 @@ public class Interface {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				metodo.run();
+				
+				janela.dispose();
 				
 			}
 		};
 		
 		return action;
 	}
-
+	
+	public interface Inter {
+	
+		public abstract void run();
+	}
+	
+	
 }
