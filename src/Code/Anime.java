@@ -1,5 +1,7 @@
 package Code;
 
+import java.util.Random;
+
 public class Anime extends Categoria {
 
 	private static String [] enunciados = {
@@ -48,5 +50,36 @@ public class Anime extends Categoria {
 	};
 	  
 	private static Anime anime = new Anime();
-	  
+	
+	private static int indicePergunta = -1;
+	static {
+		for (int ix = 0; ix < enunciados.length; ix++) {
+			anime.addPergunta(enunciados[ix], respostas[ix]);
+		}
+	}
+	
+	public Pergunta getPergunta() {
+	    indicePergunta++;
+	return anime.perguntas[indicePergunta];
+	}
+	
+	private void embaralharPerguntas() {
+		int index;
+	    Pergunta temp;
+	    Random random = new Random();
+	    
+	    for (int i = perguntas.length - 1; i > 0; i--) {
+	    	index = random.nextInt(i + 1);
+	    	temp = perguntas[index];
+	    	perguntas[index] = perguntas[i];
+	    	perguntas[i] = temp;
+	    }
+	    indicePergunta = -1;
+	}
+	
+	public Anime() {
+		if(!(anime == null)){
+			anime.embaralharPerguntas();
+		}
+	}
 }
