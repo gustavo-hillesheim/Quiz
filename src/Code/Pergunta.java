@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -131,6 +130,19 @@ public class Pergunta {
 		return pane;
 	}
 
+	public boolean algoEscolhido() {
+		
+		for (JRadioButton btn : buttons) {
+			
+			if (btn.isSelected()) {
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public boolean validarResposta() {
 
 		// Passa por todos os Radio Buttons
