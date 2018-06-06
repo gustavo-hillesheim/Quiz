@@ -12,7 +12,7 @@ public class Matematica extends Categoria {
 		
 		return gerarPergunta();
 	}
-	
+	 
 	private Pergunta gerarPergunta() {
 		
 		Object[] enunResul = gerarEnunciado();
