@@ -37,7 +37,7 @@ public class Jogador {
   }
 
   public static List<Jogador> listarJogadoresSemTempo() {
-    List<Jogador> jogadores = listaComTempo;
+    List<Jogador> jogadores = listaSemTempo;
     // Ordena a lista.
     jogadores.sort(comparadorJogador);
 
