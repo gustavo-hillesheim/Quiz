@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 		JFrame frame = new JFrame();
 		frame.setSize(300, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +47,5 @@ public class Main {
 		frame.add(btn);
 		
 		frame.setVisible(true);
-		
-		
 	}
 }
