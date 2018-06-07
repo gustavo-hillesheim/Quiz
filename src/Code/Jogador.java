@@ -13,7 +13,7 @@ public class Jogador {
   private static Comparator<Jogador> comparadorJogador;
   private String nome;
   private Integer numAcertos;
-  private Integer tempo; // Nem sei se é double, mas enfim; É o tempo que o
+  private Integer tempo; // Nem sei se ï¿½ double, mas enfim; ï¿½ o tempo que o
   						// jogador demorou no jogo.
 
   // Inicializa o comparador
@@ -92,6 +92,7 @@ public class Jogador {
   
   public Object[] getInfo() {
 	  
-	  return new Object[] {getNome(), getTempoString(), getNumAcertos()};
+	  return new Object[] {getNome(), getNumAcertos(), getTempoString()};
   }
+
 }
