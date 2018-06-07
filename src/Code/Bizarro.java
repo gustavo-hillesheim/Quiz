@@ -26,11 +26,11 @@ public class Bizarro extends Categoria {
 
   // Arrays de alternativas
   private static String[][] respostas =
-          { { "Peidar", "Arrotar", "Espirrar", "Comer de pé." },
+          { { "Peidar", "Arrotar", "Espirrar", "Comer de pé" },
               { "Caçador de animais mortos", "Assassino de corvos", "Testador de carnes",
                   "Fiscaliador de prostituição" },
-              { "Pistolas de água", "Espadas de plástico", "Um cachorro", "Sua mãe." },
-              { "Dar gorjetas", "Flertar com garços e garçonetes", "Tirar foto de comida",
+              { "Pistolas de água", "Espadas de plástico", "Um cachorro", "Sua mãe" },
+              { "Dar gorjetas", "Flertar com garçons e garçonetes", "Tirar foto de comida",
                   "Falar alto" },
               { "Cavaleiros Jedi", "Mitologia nórdica", "Pizza", "Cthulhu" },
               { "Baunilha", "Vinho", "Lavanda", "Sangue" },
