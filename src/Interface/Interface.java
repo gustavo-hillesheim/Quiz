@@ -140,27 +140,29 @@ public class Interface {
 		lblCamp.setOpaque(true);
 		lblCamp.setBackground(new Color(202,204,206));
 		lblCamp.setSize(700,250);
-		
-		//Colocar pergunta
-		
-		
-		
-		
-		//Number of pergunta
-		
+
 		//Pular pergunta
-		JLabel lblJump = setLabelIcon(450, 255, "Jump", "src/Interface/img/jump.png", 75, 75);
+		JLabel lblJump = setLabelIcon(420, 255, "Jump", "src/Interface/img/jump.png", 75, 75);
 		
 		//Ajuda
-		JLabel lblHelp = setLabelIcon(320, 255, "Help", "src/Interface/img/flag.png", 80, 80);
+		JLabel lblHelp = setLabelIcon(295, 255, "Help", "src/Interface/img/flag.png", 80, 80);
 		
-		//Pr�ximo/Responder
-		JLabel lblNext = setLabelIcon(200, 259, "Next", "src/Interface/img/next.png", 65, 65);
+		//Próximo/Responder
+		JLabel lblNext = setLabelIcon(180, 259, "Next", "src/Interface/img/next.png", 65, 65);
 		
-		//Indice da Pergunta
+		//Wrongs
+		JLabel lblWrongs = setLabelIcon(635, 265, "Wrongs", "src/Interface/img/sad.png", 25, 25);
+		
+		//Rights
+		JLabel lblRights = setLabelIcon(635, 285, "Rights", "src/Interface/img/sad.png", 25, 25);
+		
+		//Jumps
+		JLabel lblJumps = setLabelIcon(605, 275, "Jumps", "src/Interface/img/sad.png", 25, 25);
+		
+		//Number of Pergunta
 		JLabel lblIndice = new JLabel(indPerg+" - ");
 		lblIndice.setBounds(18,20,45,35);
-		lblIndice.setFont(new Font("Gerogean", Font.BOLD, 20));
+		lblIndice.setFont(new Font("Georgean", Font.BOLD, 20));
 
 		lblNext.addMouseListener(EventLabel(janela, new Inter() {
 			
@@ -175,6 +177,11 @@ public class Interface {
 					lblIndice.setText(indPerg+" - ");
 				}else {
 					lblIndice.setText(indPerg+"- ");
+				}
+				
+				if(indPerg > 10){
+					Ranking();
+					janela.dispose();
 					indPerg=1;
 				}
 		}}));
@@ -184,12 +191,21 @@ public class Interface {
 			@Override
 			public void run() {
 				
-				quest.getPergunta().atualizarPanel();
+				if(indJump < 3){
+					quest.getPergunta().atualizarPanel();
 				
-				
+					indJump++;
+				}
 		}}));
-		
-		
+				
+		lblHelp.addMouseListener(EventLabel(janela, new Inter() {
+
+			@Override
+			public void run() {
+				
+				//ajuda();
+		}}));
+				
 		//ImgCronometro
 		ImageIcon hourglass = new ImageIcon("src/Interface/img/timer.gif");
 		
@@ -201,8 +217,13 @@ public class Interface {
 		lblTimer.setFont(new Font("Georgean", Font.BOLD, 15));
 		lblTimer.setBounds(15, 305, 120,25);
 		
-		Timer(lblTimer);
+		if(lblTimer.isVisible() == true){
+			Timer(lblTimer);
+		}
 		
+		janela.add(lblJumps);
+		janela.add(lblRights);
+		janela.add(lblWrongs);
 		janela.add(lblIndice);
 		janela.add(pnQuestion);
 		janela.add(lblJump);
@@ -224,7 +245,15 @@ public class Interface {
 		//Heanding
 		JLabel lblHome = setLabelIcon(0, 0, "Home", "src/Interface/img/house.png", 40, 40);
 		
-		lblHome.addMouseListener(EventLabel(janela, () -> Main()));
+		lblHome.addMouseListener(EventLabel(janela, new Inter() {
+
+			@Override
+			public void run() {
+				
+				janela.dispose();
+				Main();
+			}
+		}));
 		
 		JLabel lblTitle = new JLabel("Ranking");
 		lblTitle.setFont(new Font("Georgean", Font.BOLD, 35));
@@ -241,8 +270,7 @@ public class Interface {
 		JLabel lblTwitter = setLabelIcon(165, 415, null, "src/Interface/img/tt.png", 45, 45);
 		
 		JLabel lblWpp = setLabelIcon(200, 415, null, "src/Interface/img/wpp.png", 43, 43);
-		
-		
+				
 		janela.add(lblSymbol);
 		janela.add(lblTitle);
 		janela.add(lblHome);
@@ -251,6 +279,10 @@ public class Interface {
 		janela.add(lblFace);
 		janela.add(lblShare);
 		janela.setVisible(true);
+	}
+	
+	private static void End() {
+		
 	}
 	
 	private static JLabel setLabelIcon(int x, int y, String ToolTip, String icon, int Width, int Height) {
@@ -283,10 +315,10 @@ public class Interface {
 		lblTimer.setVisible(valida);
 	}
 	
-	private static int currentMIlisecond=30000;
+	private static int currentTime = 0;
 	private static int currentSegundo = 60;
 	private static int currentMinuto = 5;
-	private static int speed = 1000;
+	private static int speed = 50;
 	
 	private static void Timer(JLabel label) {
 		
@@ -295,6 +327,9 @@ public class Interface {
 		 ActionListener action = new ActionListener() {  
 	            public void actionPerformed(ActionEvent e) {  
 	               	      
+	            	currentTime++;
+	            	
+	            if((currentMinuto != 0) || (currentSegundo != 0)) {
 	            	if(currentSegundo == 0) {
 	                	currentSegundo = 60;
 	                }
@@ -309,6 +344,7 @@ public class Interface {
 	                String seg = currentSegundo <= 9? "0"+currentSegundo:currentSegundo+"";
 	                
 	                label.setText(min+":"+seg+"min");  
+	            }
 	            }
 	        };
 	        timer = new Timer(speed, action);  
