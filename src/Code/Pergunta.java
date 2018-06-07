@@ -118,7 +118,7 @@ public class Pergunta {
 
 		// Iniciando PainÃ©l onde ficarÃ£o os componentes
 		JPanel pane = new JPanel();
-		pane.setBounds(0, 0, 700, 250);
+		pane.setBounds(15, 10, 700, 250);
 		pane.setLayout(null);
 		pane.setOpaque(false);
 

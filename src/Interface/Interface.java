@@ -8,21 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import Code.Bizarro;
 
 public class Interface {
 	
-	private static JLabel lblTimer = new JLabel();
-	private static JLabel lblHourGlass = new JLabel();
-
 	public Interface(){
 		
 		Main();
@@ -31,15 +32,17 @@ public class Interface {
 	
 	private static void Main(){
 		
-		Frame janela = new Frame();
+		JFrame janela = new JFrame();
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setSize(531, 349);
+		janela.setLayout(null);
+		janela.setLocationRelativeTo(null);
 		janela.getContentPane().setBackground(Color.WHITE);
-		janela.setPadding(5);
 		
 		//Logo
 		ImageIcon logo = new ImageIcon("src/Interface/img/logo.gif");
 		
-		JLabel lblLogo = new JLabel(logo);
-		lblLogo.setSize(logo.getIconWidth(), logo.getIconHeight());
+		JLabel lblLogo = setLabelIcon((int) 85.5, 0, null, "src/Interface/img/logo.gif", logo.getIconWidth(), logo.getIconHeight());
 		
 		//UserFace
 		JLabel lblUser = setLabelIcon(50, 150, null, "src/Interface/img/user.png", 30, 30);
@@ -108,7 +111,7 @@ public class Interface {
 				janela.dispose();
 		}}));
 
-		janela.add(lblLogo, Frame.MIDDLE_TOP);		
+		janela.add(lblLogo);		
 		janela.add(lblUser);
 		janela.add(txtUser);
 		janela.add(lblCateg);
@@ -122,55 +125,86 @@ public class Interface {
 		janela.setVisible(true);
 	}
 	
-	static Code.Categoria quest = new Bizarro();
-	
-	static JPanel pnQuestion = quest.getPergunta().getInterface();
-	
-	static int indPerg=1;
-	
-	static int indJump;
+	private static Code.Categoria quest = new Bizarro();
+	private static JPanel pnQuestion = quest.getPergunta().getInterface();
+	private static JLabel lblTimer = new JLabel();
+	private static JLabel lblHourGlass = new JLabel();
+	private static int indPerg=1;
+	private static int indHelp=1;
+	private static int indJump=3;
+	private static int indRight=0;
+	private static int indWrong=0;
+	private static JLabel lblJump;
+	private static JLabel lblJumps;
+	private static JLabel lblHelp;
+	private static JLabel lblHelps;
 	
 	private static void Question(){
 		
-		Frame janela = new Frame();
+		indHelp=1;
+		indJump=3;
+		
+		JFrame janela = new JFrame();
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setSize(736, 375);
+		janela.setLayout(null);
+		janela.setLocationRelativeTo(null);
 		janela.getContentPane().setBackground(Color.WHITE);
-		janela.setPadding(10);
 		
 		JLabel lblCamp = new JLabel();
 		lblCamp.setOpaque(true);
 		lblCamp.setBackground(new Color(202,204,206));
-		lblCamp.setSize(700,250);
-
-		//Pular pergunta
-		JLabel lblJump = setLabelIcon(420, 255, "Jump", "src/Interface/img/jump.png", 75, 75);
+		lblCamp.setBounds(10,10,700,240);
+		
+		//"Botões"
+		//Próximo/Responder
+		JLabel lblNext = setLabelIcon(180, 265, "Next", "src/Interface/img/next.png", 60, 60);
 		
 		//Ajuda
-		JLabel lblHelp = setLabelIcon(295, 255, "Help", "src/Interface/img/flag.png", 80, 80);
+		lblHelp = setLabelIcon(295, 260, "Help", "src/Interface/img/flag.png", 75, 75);
 		
-		//Próximo/Responder
-		JLabel lblNext = setLabelIcon(180, 259, "Next", "src/Interface/img/next.png", 65, 65);
+		//Pular Pergunta
+		lblJump = setLabelIcon(412, 260, "Jump", "src/Interface/img/jump.png", 70, 70);
 		
+		//Marcadores
 		//Wrongs
-		JLabel lblWrongs = setLabelIcon(635, 265, "Wrongs", "src/Interface/img/sad.png", 25, 25);
+		JLabel lblWrongs = setLabelIcon(640, 295, "Wrongs", "src/Interface/img/sad.png", 25, 25);
+		
+		JLabel lblShowWrongs = new JLabel(""+indWrong);
+		lblShowWrongs.setBounds(680,295,25,25);
+		lblShowWrongs.setFont(new Font("Georgean", Font.BOLD, 15));
+		lblShowWrongs.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		//Rights
-		JLabel lblRights = setLabelIcon(635, 285, "Rights", "src/Interface/img/sad.png", 25, 25);
+		JLabel lblRights = setLabelIcon(635, 260, "Rights", "src/Interface/img/hat.png", 35, 35);
+		
+		JLabel lblShowRights = new JLabel(""+indRight);
+		lblShowRights.setBounds(680,268,25,25);
+		lblShowRights.setFont(new Font("Georgean", Font.BOLD, 15));
+		lblShowRights.setHorizontalTextPosition(SwingConstants.CENTER);
+		
+		//Help
+		lblHelps = setLabelIcon(345, 268, "Helps", "src/Interface/img/circle.png", 15, 15);
+		lblHelps.setText(""+indHelp);
+		lblHelps.setFont(new Font("Georgean", Font.BOLD, 10));
+		lblHelps.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		//Jumps
-		JLabel lblJumps = setLabelIcon(605, 275, "Jumps", "src/Interface/img/sad.png", 25, 25);
+		lblJumps = setLabelIcon(462, 268, "Jumps", "src/Interface/img/circle.png", 15, 15);
+		lblJumps.setText(""+indJump);
+		lblJumps.setFont(new Font("Georgean", Font.BOLD, 10));
+		lblJumps.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		//Number of Pergunta
 		JLabel lblIndice = new JLabel(indPerg+" - ");
-		lblIndice.setBounds(18,20,45,35);
+		lblIndice.setBounds(28,30,45,35);
 		lblIndice.setFont(new Font("Georgean", Font.BOLD, 20));
 
 		lblNext.addMouseListener(EventLabel(janela, new Inter() {
 			
 			@Override
 			public void run() {
-									
-				quest.getPergunta().atualizarPanel();
-				
+													
 				indPerg++;		
 				
 				if(indPerg != 10){
@@ -179,38 +213,129 @@ public class Interface {
 					lblIndice.setText(indPerg+"- ");
 				}
 				
-				if(indPerg > 10){
-					Ranking();
+				if(indPerg > 10) {
 					janela.dispose();
+					End();
 					indPerg=1;
 				}
+				
+				quest.getPergunta().atualizarPanel();
 		}}));
 		
-		lblJump.addMouseListener(EventLabel(janela, new Inter() {
+		lblJump.addMouseListener(new MouseListener() {
 			
 			@Override
-			public void run() {
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
 				
-				if(indJump < 3){
-					quest.getPergunta().atualizarPanel();
-				
-					indJump++;
-				}
-		}}));
-				
-		lblHelp.addMouseListener(EventLabel(janela, new Inter() {
-
+			}
+			
 			@Override
-			public void run() {
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
 				
-				//ajuda();
-		}}));
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				
+				if(indJump > 0) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				if(indJump > 0){
+					quest.getPergunta().atualizarPanel();
+					
+					indJump--;
+					
+					lblJumps.setText(""+indJump);
+				}
+
+				if(indJump == 0) {
+					
+					ImageIcon imageIcon = new ImageIcon("src/Interface/img/jumpoff.png");
+					Image image = imageIcon.getImage().getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH);
+					imageIcon = new ImageIcon(image);		
+					
+					lblJump.setIcon(imageIcon);
+					
+					janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					
+					lblJumps.setVisible(false);
+					
+				}
+			}
+		});
+				
+		lblHelp.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				
+				if(indHelp == 1) {
+				
+				janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+								
+				if(indHelp > 0){
+					
+					indHelp--;
+				}
+
+				if(indHelp == 0) {
+					
+					ImageIcon imageIcon = new ImageIcon("src/Interface/img/flagoff.png");
+					Image image = imageIcon.getImage().getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH);
+					imageIcon = new ImageIcon(image);		
+					
+					lblHelp.setIcon(imageIcon);
+					
+					janela.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					
+					lblHelps.setVisible(false);
+					
+				}
+			}
+		});
 				
 		//ImgCronometro
 		ImageIcon hourglass = new ImageIcon("src/Interface/img/timer.gif");
 		
 		lblHourGlass.setIcon(hourglass);
-		lblHourGlass.setBounds(20,265,hourglass.getIconWidth(), hourglass.getIconHeight());
+		lblHourGlass.setBounds(20,267,hourglass.getIconWidth(), hourglass.getIconHeight());
 				
 		//CronometroItself
 		lblTimer.setText("30:00min");
@@ -218,9 +343,12 @@ public class Interface {
 		lblTimer.setBounds(15, 305, 120,25);
 		
 		if(lblTimer.isVisible() == true){
-			Timer(lblTimer);
+			Timer(janela, lblTimer);
 		}
 		
+		janela.add(lblShowRights);
+		janela.add(lblShowWrongs);
+		janela.add(lblHelps);
 		janela.add(lblJumps);
 		janela.add(lblRights);
 		janela.add(lblWrongs);
@@ -238,9 +366,12 @@ public class Interface {
 
 	private static void Ranking() {
 		
-		Frame janela = new Frame();
+		JFrame janela = new JFrame();
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setSize(406, 519);
+		janela.setLayout(null);
+		janela.setLocationRelativeTo(null);
 		janela.getContentPane().setBackground(Color.WHITE);
-		janela.setPadding(10);
 
 		//Heanding
 		JLabel lblHome = setLabelIcon(0, 0, "Home", "src/Interface/img/house.png", 40, 40);
@@ -257,9 +388,9 @@ public class Interface {
 		
 		JLabel lblTitle = new JLabel("Ranking");
 		lblTitle.setFont(new Font("Georgean", Font.BOLD, 35));
-		lblTitle.setBounds(115,10,150,45);
+		lblTitle.setBounds(123,10,150,45);
 		
-		JLabel lblSymbol = setLabelIcon(320, 0, null, "src/Interface/img/grown.png", 50, 50);
+		JLabel lblSymbol = setLabelIcon(335, 0, null, "src/Interface/img/grown.png", 50, 50);
 		
 		//Social Midias
 		JLabel lblShare = new JLabel("Compartilhe com seus amigos!");
@@ -283,6 +414,124 @@ public class Interface {
 	
 	private static void End() {
 		
+		JFrame janela = new JFrame();
+		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JLabel label = new JLabel();
+		
+		ImageIcon image = new ImageIcon();
+		
+		if(currentTime == 300) {
+			image = new ImageIcon("src/Interface/img/timegone.gif");
+		
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}
+	
+		if(indRight < 2) {
+			image = new ImageIcon("src/Interface/img/Right1.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TA<br>FODA!</center></html>", 45, 255, 113, 181, () -> Main());
+				
+		}else if((indRight > 2) && (indRight < 4)) {
+			
+			image = new ImageIcon("src/Interface/img/Right2.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}else if((indRight > 4) && (indRight < 6)) {
+			
+			image = new ImageIcon("src/Interface/img/Right3.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}else if((indRight > 6) && (indRight < 8)) {
+			
+			image = new ImageIcon("src/Interface/img/Right4.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}else if((indRight > 8) && (indRight < 9)){
+			
+			image = new ImageIcon("src/Interface/img/Right5.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}else {
+			
+			image = new ImageIcon("src/Interface/img/Right6.gif");
+			
+			label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+		}
+		
+		
+		janela.setSize(image.getIconWidth(), image.getIconHeight());
+		janela.setLayout(null);
+		janela.setLocationRelativeTo(null);
+		 			
+		
+		janela.add(label);
+		
+		janela.setVisible(true);
+	}
+	
+	private static JLabel setFinalImage(JFrame janela, ImageIcon image, String txt, int TamFont, int r, int g, int b, Inter metodo) {
+		
+		JLabel label = new JLabel(image);
+		label.setText(txt);
+		label.setFont(new Font("Georgean", Font.BOLD, TamFont));
+		label.setForeground(new Color(r,g,b));
+		label.setHorizontalTextPosition(SwingConstants.CENTER);
+		label.setBounds(0,0,image.getIconWidth(), image.getIconHeight());
+		
+		janela.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				
+				Timer timer = new Timer(3000, new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent evt) {
+		              janela.dispose();
+		            }
+		          });
+		          timer.setRepeats(false);
+		          timer.start();
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				
+				metodo.run();
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		return label;
 	}
 	
 	private static JLabel setLabelIcon(int x, int y, String ToolTip, String icon, int Width, int Height) {
@@ -315,40 +564,53 @@ public class Interface {
 		lblTimer.setVisible(valida);
 	}
 	
-	private static int currentTime = 0;
-	private static int currentSegundo = 60;
-	private static int currentMinuto = 5;
-	private static int speed = 50;
+	private static Timer timer;
+	private static int currentTime;
+	private static int currentSegundo;
+	private static int currentMinuto;
+	private static int speed;
 	
-	private static void Timer(JLabel label) {
+	private static void Timer(JFrame janela, JLabel label) {
 		
-		Timer timer;
+		currentTime = 0;
+		currentSegundo = 60;
+		currentMinuto = 5;
+		speed = 50;
 		
-		 ActionListener action = new ActionListener() {  
+		timer = new Timer(speed, new ActionListener() {  
 	            public void actionPerformed(ActionEvent e) {  
-	               	      
-	            	currentTime++;
+	               	      	            	            	
+	            	if(((currentMinuto != 0) || (currentSegundo != 0)) && (janela.isShowing() == true)) {
+	            		
+	            		currentTime++;
+	            		
+	            		if(currentSegundo == 0) {
+	            			currentSegundo = 60;
+	            		}
 	            	
-	            if((currentMinuto != 0) || (currentSegundo != 0)) {
-	            	if(currentSegundo == 0) {
-	                	currentSegundo = 60;
-	                }
-	            	
-	                if(currentSegundo == 60){
-	                    currentMinuto--;
-	                }
-	                
-	                currentSegundo--;
+	            		if(currentSegundo == 60){
+	            			currentMinuto--;
+	            		}
+	            		
+	            		currentSegundo--;
 	                	               
-	                String min = currentMinuto <= 9? "0"+currentMinuto:currentMinuto+"";
-	                String seg = currentSegundo <= 9? "0"+currentSegundo:currentSegundo+"";
+	            		String min = currentMinuto <= 9? "0"+currentMinuto:currentMinuto+"";
+	            		String seg = currentSegundo <= 9? "0"+currentSegundo:currentSegundo+"";
 	                
-	                label.setText(min+":"+seg+"min");  
+	            		label.setText(min+":"+seg+"min");
+	            	}else {
+	            		timer.stop();
+	              	}
+	            	
+	            	if((timer.isRunning() == false) && (janela.isShowing() == true)) {
+	            		janela.dispose();
+	            		End();
+	            	}
+	            	
 	            }
-	            }
-	        };
-	        timer = new Timer(speed, action);  
+	        });
 	        timer.start();
+		
 	}
 	
 	private static boolean changeView() {
@@ -364,7 +626,7 @@ public class Interface {
 		return valida;
 	}
 	
-	private static MouseListener EventLabel(Frame janela, Inter metodo) {
+	private static MouseListener EventLabel(JFrame janela, Inter metodo) {
 		
 		MouseListener action = new MouseListener() {
 			
