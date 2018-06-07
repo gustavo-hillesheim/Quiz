@@ -9,11 +9,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("serial")
 public class CustomTableModel extends DefaultTableModel {
 
 	public CustomTableModel(List<Jogador> jogadores, int[] indexes) {
 
-		String[] colunas = { "Jogador", "Tempo", "Pontuação"};
+		String[] colunas = { "Jogador", "Tempo", "Pontuaï¿½ï¿½o"};
 
 		for (int i = 0; i < indexes.length; i++) {
 
@@ -39,7 +40,7 @@ public class CustomTableModel extends DefaultTableModel {
 
 		JTable tabela = new JTable() {
 
-			// Centraliza as informações das colunas
+			// Centraliza as informaï¿½ï¿½es das colunas
 			DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 			{
 				render.setHorizontalAlignment(SwingConstants.CENTER);
