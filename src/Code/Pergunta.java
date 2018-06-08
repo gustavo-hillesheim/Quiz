@@ -83,29 +83,12 @@ public class Pergunta {
 		buttons[index].setVisible(false);
 		buttons[index].setSelected(false);
 	}
-
-	public void ajuda() {
-		
-		Random random = new Random();
-		
-		int index = random.nextInt(4);
-		
-		while (buttons[index].getText().equals(correta)) {
-			
-			index = random.nextInt(4);
-		}
-		
-		buttons[index].setVisible(false);
-		buttons[index].setSelected(false);
-	}
 	
 	public void atualizarPanel() {
 
 		// Iniciando e configurando label da pergunta
 		lblTitulo.setText(getEnunciado());
 		lblTitulo.setBounds(50, 25, 610, 75);
-		lblTitulo.setFont(new Font("Georgean", Font.BOLD, 20));
-		lblTitulo.setBounds(50, 25, 610, 25);
 		lblTitulo.setFont(new Font("Georgean", Font.BOLD, 20));
 		lblTitulo.setBackground(new Color(202, 204, 206));
 		lblTitulo.setEditable(false);
@@ -120,7 +103,6 @@ public class Pergunta {
 			buttons[i].setText(alternativas[i]);
 			buttons[i].setLocation(95, 65 + 30 * (i + 1));
 			buttons[i].setFont(new Font("Georgean", Font.BOLD, 13));
-			buttons[i].setLocation(15, 30 + 30 * (i + 1));
 
 			int btnWidth = (int) buttons[i].getPreferredSize().getWidth();
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
