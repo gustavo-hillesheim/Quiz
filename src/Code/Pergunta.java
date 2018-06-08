@@ -73,15 +73,21 @@ public class Pergunta {
 		
 		Random random = new Random();
 		
-		int index = random.nextInt(4);
+		ArrayList<Integer> indexes = new ArrayList<>();
 		
-		while (buttons[index].getText().equals(correta)) {
+		int times = random.nextInt(3) + 1;
+		
+		for (int i = 0; i < times; i++) {
 			
-			index = random.nextInt(4);
+			int index = 0;
+			
+			do {
+				
+				index = random.nextInt(4);
+			} while ((indexes.indexOf(index) != -1) || (buttons[index].getText().equals(correta)));
+			
+			buttons[index].setVisible(false);
 		}
-		
-		buttons[index].setVisible(false);
-		buttons[index].setSelected(false);
 	}
 	
 	public void atualizarPanel() {
@@ -168,7 +174,7 @@ public class Pergunta {
 			// Verifica se o botï¿½o estï¿½ selecionado
 			if (btn.isSelected()) {
 
-				// Verifica se o texto do botï¿½o ï¿½ igual ï¿½ resposta correta
+				// Verifica se o texto do botão é igual à resposta correta
 				if (btn.getText().equals(correta)) {
 
 					return true;

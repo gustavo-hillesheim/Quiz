@@ -12,7 +12,7 @@ import javax.swing.table.TableCellRenderer;
 @SuppressWarnings("serial")
 public class CustomTableModel extends DefaultTableModel {
 
-	private JScrollPane pane = new JScrollPane();
+	private static JScrollPane pane = new JScrollPane();
 	
 	public CustomTableModel(List<Jogador> jogadores, int[] indexes) {
 
