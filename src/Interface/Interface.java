@@ -179,11 +179,17 @@ public class Interface {
 	private static JLabel lblHelp;
 	private static JLabel lblHelps;
 	
+	private static void reiniciarQuest(Pergunta question) {
+		
+		question = theme.getPergunta();
+	}
+	
 	//Painel das questões
 	private static void Question(){
 		
 		Pergunta question = theme.getPergunta();
 		pnQuestion = question.getInterface();
+		
 		indRight=0;
 		indWrong=0;
 		indHelp=1;
@@ -265,9 +271,9 @@ public class Interface {
 			@Override
 			public void run() {
 												
-				if(question.algoEscolhido() == true) {
+				if(question.algoEscolhido()) {
 				
-					if(question.validarResposta() == true) {
+					if(question.validarResposta()) {
 						indRight++;
 					}else {
 						indWrong++;
@@ -283,8 +289,10 @@ public class Interface {
 					}else {
 						lblIndice.setText(indPerg+"- ");
 					}
-								
-					theme.getPergunta().atualizarPanel();
+					
+					reiniciarQuest(question);
+					question.setPergunta(theme.getPergunta().getPergunta());
+					question.atualizarPanel();
 				}else {
 					JOptionPane.showMessageDialog(null, "Escolha pelo menos uma alternativa", "ERROR", 0);
 				}
@@ -297,6 +305,7 @@ public class Interface {
 						player.finalizarJogo(indRight);
 					}
 				
+					theme.getPergunta().reiniciar();
 					janela.dispose();
 					End();
 					indPerg=1;
@@ -518,7 +527,7 @@ public class Interface {
 	
 	//Painel final
 	private static void End() {
-		
+				
 		JFrame janela = new JFrame();
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		

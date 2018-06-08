@@ -18,12 +18,28 @@ public class Pergunta {
 
 	private static JTextArea lblTitulo;
 	private static JRadioButton[] buttons = new JRadioButton[4];
+	private static ButtonGroup radioGroup;
 
 	public Pergunta(String enunciado, String[] alternativas) {
 
 		this.enunciado = enunciado;
 		this.correta = alternativas[0];
 		this.alternativas = alternativas;
+	}
+	
+	public void setPergunta(String[][] info) {
+
+		String enunciado = info[0][0];
+		String[] alternativas = info[1];
+		
+		this.enunciado = enunciado;
+		this.correta = alternativas[0];
+		this.alternativas = alternativas;
+	}
+	
+	public String[][] getPergunta() {
+		
+		return new String[][] {new String[] {this.enunciado}, this.alternativas};
 	}
 
 	public String getEnunciado() {
@@ -114,6 +130,8 @@ public class Pergunta {
 		
 		String[] alternativas = getAlternativas();
 
+		radioGroup.clearSelection();
+		
 		// Iniciando os botÃµes
 		for (int i = 0; i < 4; i++) {
 
@@ -127,7 +145,6 @@ public class Pergunta {
 			buttons[i].setSize(btnWidth, btnHeight);
 			buttons[i].setOpaque(false);
 			buttons[i].setVisible(true);
-			buttons[i].setSelected(false);
 		}
 	}
 
@@ -145,13 +162,13 @@ public class Pergunta {
 			lblTitulo = new JTextArea();
 
 			// Grupo para que os radio buttons funcionem direito
-			ButtonGroup group = new ButtonGroup();
+			radioGroup = new ButtonGroup();
 
 			for (int i = 0; i < 4; i++) {
 
 				buttons[i] = new JRadioButton();
 
-				group.add(buttons[i]);
+				radioGroup.add(buttons[i]);
 				pane.add(buttons[i]);
 			}
 
@@ -178,9 +195,13 @@ public class Pergunta {
 	
 	public boolean validarResposta() {
 
+		System.out.println(correta);
+		
 		// Passa por todos os Radio Buttons
 		for (JRadioButton btn : buttons) {
 
+			System.out.println(btn.getText() + " - " + btn.isSelected());			
+			
 			// Verifica se o botï¿½o estï¿½ selecionado
 			if (btn.isSelected()) {
 
