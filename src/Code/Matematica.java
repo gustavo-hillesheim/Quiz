@@ -27,7 +27,7 @@ public class Matematica extends Categoria {
 		return p;
 	}
 	
-	private Object[] gerarEnunciado() {
+	public Object[] gerarEnunciado() {
 		
 		Random random = new Random();
 		
