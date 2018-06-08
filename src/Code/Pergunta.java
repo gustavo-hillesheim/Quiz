@@ -83,21 +83,6 @@ public class Pergunta {
 		buttons[index].setVisible(false);
 		buttons[index].setSelected(false);
 	}
-
-	public void ajuda() {
-		
-		Random random = new Random();
-		
-		int index = random.nextInt(4);
-		
-		while (buttons[index].getText().equals(correta)) {
-			
-			index = random.nextInt(4);
-		}
-		
-		buttons[index].setVisible(false);
-		buttons[index].setSelected(false);
-	}
 	
 	public void atualizarPanel() {
 
