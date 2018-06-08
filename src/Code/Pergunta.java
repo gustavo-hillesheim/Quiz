@@ -90,6 +90,16 @@ public class Pergunta {
 		}
 	}
 	
+	public void reiniciar() {
+		
+		lblTitulo = null;
+		
+		for (JRadioButton btn : buttons) {
+			
+			btn = null;
+		}
+	}
+	
 	public void atualizarPanel() {
 
 		// Iniciando e configurando label da pergunta
@@ -123,7 +133,7 @@ public class Pergunta {
 
 	public JPanel getInterface() {
 
-		// Iniciando PainÃ©l onde ficarÃ£o os componentes
+		// Iniciando PainÃ©l onde ficarão os componentes
 		JPanel pane = new JPanel();
 		pane.setBounds(15, 10, 700, 250);
 		pane.setLayout(null);
