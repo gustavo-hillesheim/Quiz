@@ -254,7 +254,7 @@ public class Interface {
 		lblHourGlass.setBounds(20,267,hourglass.getIconWidth(), hourglass.getIconHeight());
 				
 		//CronometroItself
-		lblTimer.setText("30:00min");
+		lblTimer.setText("05:00min");
 		lblTimer.setFont(new Font("Georgean", Font.BOLD, 15));
 		lblTimer.setBounds(15, 305, 120,25);
 		
@@ -343,7 +343,10 @@ public class Interface {
 			public void mouseClicked(MouseEvent arg0) {
 
 				if(indJump > 0){
-					theme.getPergunta().atualizarPanel();
+					
+					System.out.println(question.getEnunciado());
+					question.setPergunta(theme.getPergunta().getPergunta());
+					question.atualizarPanel();
 					
 					indJump--;
 					
