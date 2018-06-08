@@ -37,14 +37,14 @@ public class Matematica extends Categoria {
 		
 		do {
 			
-			//Gera dois n�meros aleat�rios
+			//Gera dois números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
 			
-			//Gera uma opera��o aleat�rio
+			//Gera uma operação aleatório
 			op = random.nextInt(4) + 1;
 			
-			//Verifica qual opera��o foi randomizada e faz o c�lculo da resposta
+			//Verifica qual operação foi randomizada e faz o cálculo da resposta
 			switch (op) {
 			
 				case 1: {
@@ -70,7 +70,7 @@ public class Matematica extends Categoria {
 					break;
 				}
 			}
-		//Verifica se a quest�o j� foi randomizada antes
+		//Verifica se a questão já foi randomizada antes
 		} while (enunUsados.indexOf(enun) != -1);
 		
 		enunUsados.add(enun);
@@ -88,7 +88,7 @@ public class Matematica extends Categoria {
 		String alt3 = gerarAlternativa(correta, operacao);
 		String alt4 = gerarAlternativa(correta, operacao);
 		
-		//Verifica se a parte inteira da resposta � igual a parte real dela
+		//Verifica se a parte inteira da resposta é igual a parte real dela
 		String corretaFormat = (int) correta == correta ? String.valueOf((int) correta) : String.valueOf(correta);
 		
 		return new String[] {corretaFormat, alt2, alt3, alt4};
@@ -102,11 +102,11 @@ public class Matematica extends Categoria {
 		
 		while (alternativa == correta) {
 			
-			//Gera 2 n�meros aleat�rios
+			//Gera 2 números aleatórios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
 			
-			//Verifica qual opera��o foi gerada e faz o c�lculo do resultado
+			//Verifica qual operação foi gerada e faz o cálculo do resultado
 			switch (operacao) {
 			
 				case 1: {
@@ -131,7 +131,7 @@ public class Matematica extends Categoria {
 			alternativa = Double.parseDouble(altFormat);
 		}
 		
-		//Verifica se a parte inteira do resultado � igual a parte real
+		//Verifica se a parte inteira do resultado é igual a parte real
 		return (int) alternativa == alternativa ? String.valueOf((int) alternativa) : String.valueOf(alternativa);	
 	}
 }
