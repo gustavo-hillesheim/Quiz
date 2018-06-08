@@ -264,7 +264,7 @@ public class Interface {
 			
 			@Override
 			public void run() {
-								
+												
 				if(question.algoEscolhido() == true) {
 				
 					if(question.validarResposta() == true) {
@@ -272,6 +272,9 @@ public class Interface {
 					}else {
 						indWrong++;
 					}
+					
+					lblShowWrongs.setText(""+indWrong);
+					lblShowRights.setText(""+indRight);
 										
 					indPerg++;		
 				
@@ -282,16 +285,16 @@ public class Interface {
 					}
 								
 					theme.getPergunta().atualizarPanel();
+				}else {
+					JOptionPane.showMessageDialog(null, "Escolha pelo menos uma alternativa", "ERROR", 0);
 				}
-				
-				
 				
 				if(indPerg > 10) {
 					
 					if(lblTimer.isVisible() == true) {
-						player.finalizarJogo(indRight);
-					}else {
 						player.finalizarJogo(indRight, currentTime);
+					}else {
+						player.finalizarJogo(indRight);
 					}
 				
 					janela.dispose();
@@ -390,6 +393,7 @@ public class Interface {
 								
 				if(indHelp > 0){
 					
+					question.ajuda();
 					indHelp--;
 				}
 
