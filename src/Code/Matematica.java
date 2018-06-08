@@ -37,14 +37,14 @@ public class Matematica extends Categoria {
 		
 		do {
 			
-			//Gera dois números aleatórios
+			//Gera dois nï¿½meros aleatï¿½rios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
 			
-			//Gera uma operação aleatório
+			//Gera uma operaï¿½ï¿½o aleatï¿½rio
 			op = random.nextInt(4) + 1;
 			
-			//Verifica qual operação foi randomizada e faz o cálculo da resposta
+			//Verifica qual operaï¿½ï¿½o foi randomizada e faz o cï¿½lculo da resposta
 			switch (op) {
 			
 				case 1: {
@@ -65,12 +65,12 @@ public class Matematica extends Categoria {
 					break;
 				}
 				case 4: {
-					enun = (int)n1 + " ÷ " + (int)n2;
+					enun = (int)n1 + " Ã· " + (int)n2;
 					resul = n1 / n2;
 					break;
 				}
 			}
-		//Verifica se a questão já foi randomizada antes
+		//Verifica se a questï¿½o jï¿½ foi randomizada antes
 		} while (enunUsados.indexOf(enun) != -1);
 		
 		enunUsados.add(enun);
@@ -88,7 +88,7 @@ public class Matematica extends Categoria {
 		String alt3 = gerarAlternativa(correta, operacao);
 		String alt4 = gerarAlternativa(correta, operacao);
 		
-		//Verifica se a parte inteira da resposta é igual a parte real dela
+		//Verifica se a parte inteira da resposta ï¿½ igual a parte real dela
 		String corretaFormat = (int) correta == correta ? String.valueOf((int) correta) : String.valueOf(correta);
 		
 		return new String[] {corretaFormat, alt2, alt3, alt4};
@@ -102,11 +102,11 @@ public class Matematica extends Categoria {
 		
 		while (alternativa == correta) {
 			
-			//Gera 2 números aleatórios
+			//Gera 2 nï¿½meros aleatï¿½rios
 			double n1 = random.nextInt(100) + 1;
 			double n2 = random.nextInt(100) + 1;
 			
-			//Verifica qual operação foi gerada e faz o cálculo do resultado
+			//Verifica qual operaï¿½ï¿½o foi gerada e faz o cï¿½lculo do resultado
 			switch (operacao) {
 			
 				case 1: {
@@ -131,7 +131,7 @@ public class Matematica extends Categoria {
 			alternativa = Double.parseDouble(altFormat);
 		}
 		
-		//Verifica se a parte inteira do resultado é igual a parte real
+		//Verifica se a parte inteira do resultado ï¿½ igual a parte real
 		return (int) alternativa == alternativa ? String.valueOf((int) alternativa) : String.valueOf(alternativa);	
 	}
 }

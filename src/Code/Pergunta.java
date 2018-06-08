@@ -94,7 +94,8 @@ public class Pergunta {
 		lblTitulo.setEditable(false);
 		lblTitulo.setLineWrap(true);
 		lblTitulo.setWrapStyleWord(true);
-
+		lblTitulo.setVisible(true);
+		
 		String[] alternativas = getAlternativas();
 
 		// Iniciando os botÃµes
@@ -109,6 +110,8 @@ public class Pergunta {
 
 			buttons[i].setSize(btnWidth, btnHeight);
 			buttons[i].setOpaque(false);
+			buttons[i].setVisible(true);
+			buttons[i].setSelected(false);
 		}
 	}
 
