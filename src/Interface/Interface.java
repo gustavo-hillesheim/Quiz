@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -26,9 +27,13 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
+import Code.Anime;
 import Code.Bizarro;
 import Code.Categoria;
+import Code.CustomTableModel;
 import Code.Jogador;
+import Code.Matematica;
+import Code.Pergunta;
 
 public class Interface {
 	
@@ -38,6 +43,8 @@ public class Interface {
 
 	}
 	
+	private static Categoria theme;
+	private static Jogador player;
 	private static String User;
 	//private static Jogador player = new Jogador(User);
 	
@@ -61,11 +68,6 @@ public class Interface {
 		
 		JTextField txtUser = new JTextField();
 		txtUser.setBounds(90, (int) 153.5, 175, 25);
-		
-		if(janela.isVisible() == false) {
-			User = txtUser.getText();
-			//player = new Jogador(User);
-		}
 		
 		//CategoryFace
 		JLabel lblCateg = new JLabel("Categorias:");
@@ -110,9 +112,13 @@ public class Interface {
 			@Override
 			public void run() {
 				
-				verifyIfTimer(lblSwitchOn);
-				Ranking();
-				janela.dispose();
+				if((Jogador.listarJogadoresSemTempo().size() != 0) && (Jogador.listarJogadoresComTempo().size() != 0)) {
+					verifyIfTimer(lblSwitchOn);
+					Ranking();
+					janela.dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Rank sem jogador algum", "ERROR", 0);
+				}
 		}}));
 
 		//BeginQuiz
@@ -122,16 +128,23 @@ public class Interface {
 			
 			@Override
 			public void run() {
-					
-				boolean valida;
 				
+				User = txtUser.getText();
+				String categoria = cbxCateg.getSelectedItem().toString();
+								
 				if(User.equals("")) {
-					valida=false;
+					JOptionPane.showMessageDialog(null, "Informe o nome do jogador, por favor", "ERROR", 0);
 				}else {
-					valida=true;
-				}
-				
-				if(valida == true) {
+					
+					if(categoria.equals("Anime")) {
+						theme = new Anime();
+					}else if(categoria.equals("Bizarro")) {
+						theme = new Bizarro();
+					}else {
+						theme = new Matematica();
+					}
+					
+					player = new Jogador(User);
 					verifyIfTimer(lblSwitchOn);
 					Question();
 					janela.dispose();
@@ -153,8 +166,8 @@ public class Interface {
 	}
 	
 	//Variavéis usadas entre os metodos seguintes
-	private static Categoria quest = new Bizarro();
-	private static JPanel pnQuestion = quest.getPergunta().getInterface();
+	private static Pergunta question;
+	private static JPanel pnQuestion;
 	private static JLabel lblTimer = new JLabel();
 	private static JLabel lblHourGlass = new JLabel();
 	private static int indPerg=1;
@@ -170,6 +183,9 @@ public class Interface {
 	//Painel das questões
 	private static void Question(){
 		
+		pnQuestion = theme.getPergunta().getInterface();
+		indRight=0;
+		indWrong=0;
 		indHelp=1;
 		indJump=3;
 		
@@ -248,29 +264,40 @@ public class Interface {
 			
 			@Override
 			public void run() {
-													
-				indPerg++;		
+								
+				if(question.algoEscolhido() == true) {
 				
-				if(indPerg != 10){
-					lblIndice.setText(indPerg+" - ");
-				}else {
-					lblIndice.setText(indPerg+"- ");
+					if(question.validarResposta() == true) {
+						indRight++;
+					}else {
+						indWrong++;
+					}
+										
+					indPerg++;		
+				
+					if(indPerg != 10){
+						lblIndice.setText(indPerg+" - ");
+					}else {
+						lblIndice.setText(indPerg+"- ");
+					}
+								
+					theme.getPergunta().atualizarPanel();
 				}
+				
+				
 				
 				if(indPerg > 10) {
 					
 					if(lblTimer.isVisible() == true) {
-						//player.finalizarJogo(indRight);
+						player.finalizarJogo(indRight);
 					}else {
-						//player.finalizarJogo(indRight, currentTime);
+						player.finalizarJogo(indRight, currentTime);
 					}
-					
+				
 					janela.dispose();
 					End();
 					indPerg=1;
 				}
-				
-				quest.getPergunta().atualizarPanel();
 		}}));
 		
 		lblJump.addMouseListener(new MouseListener() {
@@ -306,7 +333,7 @@ public class Interface {
 			public void mouseClicked(MouseEvent arg0) {
 
 				if(indJump > 0){
-					quest.getPergunta().atualizarPanel();
+					theme.getPergunta().atualizarPanel();
 					
 					indJump--;
 					
@@ -400,6 +427,9 @@ public class Interface {
 		janela.setVisible(true);
 	}
 
+	private static CustomTableModel model;
+	private static JScrollPane scroll;
+	
 	//Painel do Ranking
 	private static void Ranking() {
 				
@@ -436,45 +466,27 @@ public class Interface {
 		cbxChoice.setBounds(135,55,100,20);
 		
 		//Tabela
-		DefaultTableModel model = new DefaultTableModel();
-		
-		model.addColumn("Player");
-		model.addColumn("Score");
-		model.addColumn("Time");
-		
-		//model.addRow(player.getInfo());
-		
-		JScrollPane scroll = new JScrollPane(new JTable(model));
-		scroll.setBounds(20,85,352,225);
-		
+									
 		cbxChoice.addActionListener(new ActionListener() {
-			
+						
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(cbxChoice.getSelectedIndex() == 1) {
-					model.setColumnCount(2);
-					
-					/*for(int i=0; i>Jogador.listarJogadoresSemTempo().size(); i++) {
-						
-						model.addRow(new Object[] {Jogador.listarJogadoresSemTempo().get(i).getNome()});
-					}*/
-					
-					
-					scroll.repaint();
-				}else {
-					model.addColumn("Time");
-					
-					/*for(int i=0; i>Jogador.listarJogadoresComTempo().size(); i++) {
-						
-						model.addRow(new Object[] {Jogador.listarJogadoresComTempo().get(i)});
-					}*/
 										
-					scroll.repaint();
+					model = new CustomTableModel(Jogador.listarJogadoresComTempo(), new int[] {1,2,3});
+					
+					scroll = model.getTable();
+					
+				}else {
+					
+					model = new CustomTableModel(Jogador.listarJogadoresSemTempo(), new int[] {1,3});
+					
+					scroll = model.getTable();
 				}
 			}
 		});
 		
-		
+		scroll.setBounds(20,85,352,225);
 				
 		//Social Midias
 		JLabel lblShare = new JLabel("Compartilhe com seus amigos!");
