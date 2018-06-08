@@ -13,8 +13,7 @@ public class Jogador {
   private static Comparator<Jogador> comparadorJogador;
   private String nome;
   private Integer numAcertos;
-  private Integer tempo; // Nem sei se � double, mas enfim; � o tempo que o
-  						// jogador demorou no jogo.
+  private Integer tempo; // Tempo que o jogador demorou no jogo.
 
   // Inicializa o comparador
   static {
