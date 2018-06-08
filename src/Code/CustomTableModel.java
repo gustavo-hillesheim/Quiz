@@ -16,7 +16,7 @@ public class CustomTableModel extends DefaultTableModel {
 	
 	public CustomTableModel(List<Jogador> jogadores, int[] indexes) {
 
-		String[] colunas = { "Jogador", "Tempo", "Pontua��o"};
+		String[] colunas = { "Jogador", "Tempo", "Pontuação"};
 
 		for (int i = 0; i < indexes.length; i++) {
 

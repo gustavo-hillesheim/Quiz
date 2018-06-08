@@ -194,13 +194,9 @@ public class Pergunta {
 	}
 	
 	public boolean validarResposta() {
-
-		System.out.println(correta);
 		
 		// Passa por todos os Radio Buttons
-		for (JRadioButton btn : buttons) {
-
-			System.out.println(btn.getText() + " - " + btn.isSelected());			
+		for (JRadioButton btn : buttons) {		
 			
 			// Verifica se o botï¿½o estï¿½ selecionado
 			if (btn.isSelected()) {
