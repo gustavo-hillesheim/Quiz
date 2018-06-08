@@ -112,7 +112,7 @@ public class Interface {
 			@Override
 			public void run() {
 				
-				if((Jogador.listarJogadoresSemTempo().size() != 0) && (Jogador.listarJogadoresComTempo().size() != 0)) {
+				if((Jogador.listarJogadoresSemTempo().size() != 0) || (Jogador.listarJogadoresComTempo().size() != 0)) {
 					verifyIfTimer(lblSwitchOn);
 					Ranking();
 					janela.dispose();
@@ -487,10 +487,13 @@ public class Interface {
 					
 					scroll = model.getTable();
 				}
+				
+				scroll.setBounds(20,85,352,225);
+				janela.add(scroll);
 			}
 		});
 		
-		scroll.setBounds(20,85,352,225);
+		
 				
 		//Social Midias
 		JLabel lblShare = new JLabel("Compartilhe com seus amigos!");
@@ -502,7 +505,6 @@ public class Interface {
 		
 		JLabel lblWpp = setLabelIcon(200, 415, null, "src/Interface/img/wpp.png", 43, 43);
 				
-		janela.add(scroll);
 		janela.add(lblSymbol);
 		janela.add(lblTitle);
 		janela.add(lblHome);
