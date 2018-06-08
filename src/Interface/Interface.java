@@ -10,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -19,13 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
 
 import Code.Anime;
 import Code.Bizarro;
@@ -184,8 +179,7 @@ public class Interface {
 		
 		Pergunta question = theme.getPergunta();
 		pnQuestion = question.getInterface();
-		
-		
+
 		indRight=0;
 		indWrong=0;
 		indHelp=1;
