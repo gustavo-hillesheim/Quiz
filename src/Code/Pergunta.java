@@ -45,8 +45,8 @@ public class Pergunta {
 
 		String[] alternativas = new String[this.alternativas.length];
 
-		// Arraylist que vai ser utilizado para que verificar quais indexes jï¿½ foram
-		// utilizados
+		// Arraylist que vai ser utilizado para que verificar quais indexes jï¿½
+		// foram utilizados
 		ArrayList<Integer> indexUsados = new ArrayList<>();
 
 		Random random = new Random();
@@ -68,7 +68,7 @@ public class Pergunta {
 
 		return alternativas;
 	}
-	
+
 	public void ajuda() {
 		
 		Random random = new Random();
@@ -88,8 +88,8 @@ public class Pergunta {
 
 		// Iniciando e configurando label da pergunta
 		lblTitulo.setText(getEnunciado());
-		lblTitulo.setBounds(50, 25, 610, 25);
-		lblTitulo.setFont(new Font("Gerogean", Font.BOLD, 20));
+		lblTitulo.setBounds(50, 25, 610, 75);
+		lblTitulo.setFont(new Font("Georgean", Font.BOLD, 20));
 		lblTitulo.setBackground(new Color(202, 204, 206));
 		lblTitulo.setEditable(false);
 		lblTitulo.setLineWrap(true);
@@ -103,7 +103,6 @@ public class Pergunta {
 			buttons[i].setText(alternativas[i]);
 			buttons[i].setLocation(95, 65 + 30 * (i + 1));
 			buttons[i].setFont(new Font("Georgean", Font.BOLD, 13));
-			buttons[i].setLocation(15, 30 + 30 * (i + 1));
 
 			int btnWidth = (int) buttons[i].getPreferredSize().getWidth();
 			int btnHeight = (int) buttons[i].getPreferredSize().getHeight();
@@ -117,7 +116,7 @@ public class Pergunta {
 
 		// Iniciando PainÃ©l onde ficarÃ£o os componentes
 		JPanel pane = new JPanel();
-		pane.setBounds(0, 0, 700, 250);
+		pane.setBounds(15, 10, 700, 250);
 		pane.setLayout(null);
 		pane.setOpaque(false);
 
