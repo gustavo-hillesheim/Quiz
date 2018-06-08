@@ -12,9 +12,11 @@ import javax.swing.table.TableCellRenderer;
 @SuppressWarnings("serial")
 public class CustomTableModel extends DefaultTableModel {
 
+	private static JScrollPane pane = new JScrollPane();
+	
 	public CustomTableModel(List<Jogador> jogadores, int[] indexes) {
 
-		String[] colunas = { "Jogador", "Tempo", "Pontua��o"};
+		String[] colunas = { "Jogador", "Tempo", "Pontuação"};
 
 		for (int i = 0; i < indexes.length; i++) {
 
@@ -40,7 +42,7 @@ public class CustomTableModel extends DefaultTableModel {
 
 		JTable tabela = new JTable() {
 
-			// Centraliza as informa��es das colunas
+			// Centraliza as informações das colunas
 			DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 			{
 				render.setHorizontalAlignment(SwingConstants.CENTER);
@@ -53,7 +55,7 @@ public class CustomTableModel extends DefaultTableModel {
 		};
 		tabela.setModel(this);
 
-		JScrollPane pane = new JScrollPane(tabela);
+		pane.setViewportView(tabela);;
 
 		return pane;
 	}

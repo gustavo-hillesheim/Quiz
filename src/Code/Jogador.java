@@ -92,7 +92,7 @@ public class Jogador {
   
   public Object[] getInfo() {
 	  
-	  return new Object[] {getNome(), getNumAcertos(), getTempoString()};
+	  return new Object[] {getNome(), getTempoString(), getNumAcertos()};
   }
 
 }

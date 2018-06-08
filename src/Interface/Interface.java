@@ -73,7 +73,7 @@ public class Interface {
 		JLabel lblCateg = new JLabel("Categorias:");
 		lblCateg.setBounds(50,215,120,25);
 		
-		Object[] cat = {"Matem�tica", "Bizarro", "Anime"};
+		Object[] cat = {"Anime", "Bizarro", "Matematica"};
 		
 		JComboBox<Object> cbxCateg = new JComboBox<Object>(cat);
 		cbxCateg.setBounds(50,240,120,25);	
@@ -112,7 +112,7 @@ public class Interface {
 			@Override
 			public void run() {
 				
-				if((Jogador.listarJogadoresSemTempo().size() != 0) && (Jogador.listarJogadoresComTempo().size() != 0)) {
+				if((Jogador.listarJogadoresSemTempo().size() != 0) || (Jogador.listarJogadoresComTempo().size() != 0)) {
 					verifyIfTimer(lblSwitchOn);
 					Ranking();
 					janela.dispose();
@@ -184,6 +184,8 @@ public class Interface {
 		
 		Pergunta question = theme.getPergunta();
 		pnQuestion = question.getInterface();
+		
+		
 		indRight=0;
 		indWrong=0;
 		indHelp=1;
@@ -265,9 +267,9 @@ public class Interface {
 			@Override
 			public void run() {
 												
-				if(question.algoEscolhido() == true) {
+				if(question.algoEscolhido()) {
 				
-					if(question.validarResposta() == true) {
+					if(question.validarResposta()) {
 						indRight++;
 					}else {
 						indWrong++;
@@ -283,8 +285,12 @@ public class Interface {
 					}else {
 						lblIndice.setText(indPerg+"- ");
 					}
-								
-					theme.getPergunta().atualizarPanel();
+					
+					if (indPerg <= 10) {
+
+						question.setPergunta(theme.getPergunta().getPergunta());
+						question.atualizarPanel();
+					}
 				}else {
 					JOptionPane.showMessageDialog(null, "Escolha pelo menos uma alternativa", "ERROR", 0);
 				}
@@ -296,10 +302,11 @@ public class Interface {
 					}else {
 						player.finalizarJogo(indRight);
 					}
-				
+					indPerg=1;
+					theme.getPergunta().reiniciar();
 					janela.dispose();
 					End();
-					indPerg=1;
+					
 				}
 		}}));
 		
@@ -470,12 +477,14 @@ public class Interface {
 		cbxChoice.setBounds(135,55,100,20);
 		
 		//Tabela
+		
+		cbxChoice.setSelectedIndex(-1);
 									
 		cbxChoice.addActionListener(new ActionListener() {
 						
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(cbxChoice.getSelectedIndex() == 1) {
+				if(cbxChoice.getSelectedIndex() == 0) {
 										
 					model = new CustomTableModel(Jogador.listarJogadoresComTempo(), new int[] {1,2,3});
 					
@@ -487,11 +496,12 @@ public class Interface {
 					
 					scroll = model.getTable();
 				}
+				
+				scroll.setBounds(20,85,352,225);
+				janela.add(scroll);
 			}
 		});
-		
-		scroll.setBounds(20,85,352,225);
-				
+						
 		//Social Midias
 		JLabel lblShare = new JLabel("Compartilhe com seus amigos!");
 		lblShare.setBounds(100,400,200,25);
@@ -502,7 +512,6 @@ public class Interface {
 		
 		JLabel lblWpp = setLabelIcon(200, 415, null, "src/Interface/img/wpp.png", 43, 43);
 				
-		janela.add(scroll);
 		janela.add(lblSymbol);
 		janela.add(lblTitle);
 		janela.add(lblHome);
@@ -516,7 +525,7 @@ public class Interface {
 	
 	//Painel final
 	private static void End() {
-		
+				
 		JFrame janela = new JFrame();
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -534,31 +543,31 @@ public class Interface {
 				image = new ImageIcon("src/Interface/img/Right1.gif");
 			
 				label = setFinalImage(janela, image, "<html><center>TA<br>FODA!</center></html>", 45, 255, 113, 181, () -> Main());
-			}else if((indRight > 2) && (indRight < 4)) {
+			}else if((indRight == 2) || (indRight == 3)) {
 			
 				image = new ImageIcon("src/Interface/img/Right2.gif");
 			
-				label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
-			}else if((indRight > 4) && (indRight < 6)) {
+				label = setFinalImage(janela, image, "", 35, 0, 59, 111, () -> Main());
+			}else if((indRight == 4) || (indRight == 5)) {
 			
 				image = new ImageIcon("src/Interface/img/Right3.gif");
 			
-				label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
-			}else if((indRight > 6) && (indRight < 8)) {
+				label = setFinalImage(janela, image, "<html><center>JÁ<br>VI<br>MELHORES!</center></html>", 35, 0, 59, 111, () -> Main());
+			}else if((indRight == 6) || (indRight == 7)) {
 			
 				image = new ImageIcon("src/Interface/img/Right4.gif");
 			
-				label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
-			}else if((indRight > 8) && (indRight < 9)){
+				label = setFinalImage(janela, image, "<html><center>JÁ<br>VI<br>PIOR!</center></html>", 35, 0, 59, 111, () -> Main());
+			}else if((indRight == 8) || (indRight == 9)){
 			
 				image = new ImageIcon("src/Interface/img/Right5.gif");
 			
-				label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+				label = setFinalImage(janela, image, "<html><center>É<br>NÓS!</center></html>", 35, 0, 59, 111, () -> Main());
 			}else {
 			
 				image = new ImageIcon("src/Interface/img/Right6.gif");
 			
-				label = setFinalImage(janela, image, "<html><center>TIME<br>IS<br>GONE!</center></html>", 35, 0, 59, 111, () -> Main());
+				label = setFinalImage(janela, image, "<html><center>TU<br>ÉS<br>FODA!</center></html>", 35, 0, 59, 111, () -> Main());
 			}
 		}
 		
@@ -683,7 +692,7 @@ public class Interface {
 		currentTime = 0;
 		currentSegundo = 60;
 		currentMinuto = 5;
-		speed = 50;
+		speed = 1000;
 		
 		timer = new Timer(speed, new ActionListener() {  
 	            public void actionPerformed(ActionEvent e) {  
@@ -748,8 +757,8 @@ public class Interface {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+
+				metodo.run();
 			}
 			
 			@Override
@@ -767,7 +776,7 @@ public class Interface {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				metodo.run();
+				
 								
 			}
 		};
