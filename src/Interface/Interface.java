@@ -166,7 +166,6 @@ public class Interface {
 	}
 	
 	//Variavéis usadas entre os metodos seguintes
-	private static Pergunta question;
 	private static JPanel pnQuestion;
 	private static JLabel lblTimer = new JLabel();
 	private static JLabel lblHourGlass = new JLabel();
@@ -183,7 +182,8 @@ public class Interface {
 	//Painel das questões
 	private static void Question(){
 		
-		pnQuestion = theme.getPergunta().getInterface();
+		Pergunta question = theme.getPergunta();
+		pnQuestion = question.getInterface();
 		indRight=0;
 		indWrong=0;
 		indHelp=1;
