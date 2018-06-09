@@ -81,6 +81,7 @@ public class Interface {
 		JLabel lblSwitchOn = setLabelIcon(363, 215, "Time", "src/Interface/img/switchOn.png", 20, 13);
 		lblSwitchOn.setVisible(changeView());
 		
+		//Adcionando ação para trocar a imagem do botão com o intuito de parecer que ele está se movimentando
 		lblSwitchOff.addMouseListener(EventLabel(janela, new Inter() {
 			
 			@Override
@@ -106,7 +107,7 @@ public class Interface {
 			
 			@Override
 			public void run() {
-				
+				//Verifica sem alguem já jogou
 				if((Jogador.listarJogadoresSemTempo().size() != 0) || (Jogador.listarJogadoresComTempo().size() != 0)) {
 					verifyIfTimer(lblSwitchOn);
 					Ranking();
@@ -126,7 +127,8 @@ public class Interface {
 				
 				User = txtUser.getText();
 				String categoria = cbxCateg.getSelectedItem().toString();
-								
+				
+				//Verificação se o jogador está escrito
 				if(User.equals("")) {
 					JOptionPane.showMessageDialog(null, "Informe o nome do jogador, por favor", "ERROR", 0);
 				}else {
@@ -274,6 +276,7 @@ public class Interface {
 										
 					indPerg++;		
 				
+					//Se for o número for 10 remove um espaço para não sobrepor a label do enunciado
 					if(indPerg != 10){
 						lblIndice.setText(indPerg+" ) ");
 					}else {
@@ -292,11 +295,14 @@ public class Interface {
 				
 				if(indPerg > 10) {
 					
+					//Verifica se tem tempo ou não e pega as informações requisitadas
 					if(lblTimer.isVisible() == true) {
 						player.finalizarJogo(indRight, currentTime);
 					}else {
 						player.finalizarJogo(indRight);
 					}
+					
+					//Reinicia as variáveis
 					indPerg=1;
 					theme.getPergunta().reiniciar();
 					janela.dispose();
@@ -347,7 +353,8 @@ public class Interface {
 					
 					lblJumps.setText(""+indJump);
 				}
-
+				
+				//Se não ter mais pulos remove a a opção de bottão do label
 				if(indJump == 0) {
 					
 					ImageIcon imageIcon = new ImageIcon("src/Interface/img/jumpoff.png");
@@ -402,6 +409,7 @@ public class Interface {
 					indHelp--;
 				}
 
+				//Se não tem mais ajuda remove a opção de botão do label
 				if(indHelp == 0) {
 					
 					ImageIcon imageIcon = new ImageIcon("src/Interface/img/flagoff.png");
@@ -475,7 +483,6 @@ public class Interface {
 		cbxChoice.setBounds(135,55,100,20);
 		
 		//Tabela
-		
 		cbxChoice.setSelectedIndex(-1);
 									
 		cbxChoice.addActionListener(new ActionListener() {
