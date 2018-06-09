@@ -3,7 +3,8 @@ package Code;
 import java.util.Random;
 
 public class Anime extends Categoria {
-
+	
+	//Array de perguntas
 	private static String [] enunciados = {
 		"Qual o nome do protagonista de Cowboy Bebop?",
 		"Qual a fonte dos poderes sobrenaturais dos personagens no universo de One Piece?",
@@ -25,7 +26,8 @@ public class Anime extends Categoria {
 	    "Qual o nome do golpe assinatura do personagem All Might no anime Boku no Hero Academia?",
 	    "Como são chamadas as transformações do personagem Monkey D. Luffy no anime One Piece?",
 	    "Em uma luta entre Saitama de One Punch Man e Goku de Dragon Ball, quem seria o vencedor? "};
-	  
+	
+	//Array de respostas
 	private static String[][] respostas = {
 		{"Spike","Smite","Sprite","Strike"},
 		{"Akuma no Mi","Death Note","Esferas do Dragão","Digivice"},
@@ -49,20 +51,27 @@ public class Anime extends Categoria {
 		{"Saitama","Goku","Empate","Nenhum dos dois, pois o universo seria destruído durante a luta"},
 	};
 	  
+	// instância estática usada para gerar as perguntas
 	private static Anime anime = new Anime();
 	
+	// Índice da última pergunta retirada do array
 	private static int indicePergunta = -1;
+	
+	// Inicializa o array de perguntas
 	static {
 		for (int ix = 0; ix < enunciados.length; ix++) {
 			anime.addPergunta(enunciados[ix], respostas[ix]);
 		}
 	}
 	
+	// Retorna uma pergunta do array de perguntas
 	public Pergunta getPergunta() {
 	    indicePergunta++;
 	return anime.perguntas[indicePergunta];
 	}
 	
+	// Embaralha as perguntas no array de perguntas
+	// Algoritmo de Fischer-Yates
 	private void embaralharPerguntas() {
 		int index;
 	    Pergunta temp;
@@ -77,6 +86,8 @@ public class Anime extends Categoria {
 	    indicePergunta = -1;
 	}
 	
+	// Construtor da classe. O que ele faz de fato é embaralhar a lista de
+	// perguntas toda vez que uma nova instância é criada
 	public Anime() {
 		if(!(anime == null)){
 			anime.embaralharPerguntas();
