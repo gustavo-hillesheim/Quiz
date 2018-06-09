@@ -6,6 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Interface foda = new Interface();
+		//Iniciar tudo
+		new Interface();
 	}
 }
