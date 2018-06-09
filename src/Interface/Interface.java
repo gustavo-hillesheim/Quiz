@@ -337,8 +337,7 @@ public class Interface {
 			public void mouseClicked(MouseEvent arg0) {
 
 				if(indJump > 0){
-					
-					System.out.println(question.getEnunciado());
+
 					question.setPergunta(theme.getPergunta().getPergunta());
 					question.atualizarPanel();
 					
