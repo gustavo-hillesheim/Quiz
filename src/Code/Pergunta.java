@@ -39,10 +39,11 @@ public class Pergunta {
 	
 	public String[][] getPergunta() {
 		
+		//Retorna as informações da pergunta
 		return new String[][] {new String[] {this.enunciado}, this.alternativas};
 	}
 
-	public String getEnunciado() {
+	private String getEnunciado() {
 
 		return this.enunciado;
 	}

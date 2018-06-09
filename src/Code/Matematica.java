@@ -15,6 +15,7 @@ public class Matematica extends Categoria {
 	 
 	private Pergunta gerarPergunta() {
 		
+		//Obtém o enunciado, resultado do cálculo, e qual operação foi utilizada
 		Object[] enunResul = gerarEnunciado();
 		String enunciado = (String) enunResul[0];
 		double resultado = (Double) enunResul[1];
