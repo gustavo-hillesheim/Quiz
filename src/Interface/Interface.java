@@ -237,7 +237,7 @@ public class Interface {
 		lblJumps.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		//Number of Pergunta
-		JLabel lblIndice = new JLabel(indPerg+" - ");
+		JLabel lblIndice = new JLabel(indPerg+" ) ");
 		lblIndice.setBounds(28,30,45,35);
 		lblIndice.setFont(new Font("Georgean", Font.BOLD, 20));
 
@@ -275,9 +275,9 @@ public class Interface {
 					indPerg++;		
 				
 					if(indPerg != 10){
-						lblIndice.setText(indPerg+" - ");
+						lblIndice.setText(indPerg+" ) ");
 					}else {
-						lblIndice.setText(indPerg+"- ");
+						lblIndice.setText(indPerg+") ");
 					}
 					
 					if (indPerg <= 10) {
