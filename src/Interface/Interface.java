@@ -281,7 +281,8 @@ public class Interface {
 					}
 					
 					if (indPerg <= 10) {
-
+						
+						//Pega outra pergunta
 						question.setPergunta(theme.getPergunta().getPergunta());
 						question.atualizarPanel();
 					}
@@ -337,7 +338,8 @@ public class Interface {
 			public void mouseClicked(MouseEvent arg0) {
 
 				if(indJump > 0){
-
+					
+					//Pega outra pergunta
 					question.setPergunta(theme.getPergunta().getPergunta());
 					question.atualizarPanel();
 					
