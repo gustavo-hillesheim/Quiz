@@ -16,19 +16,23 @@ public class CustomTableModel extends DefaultTableModel {
 	
 	public CustomTableModel(List<Jogador> jogadores, int[] indexes) {
 
+		//Define quais será os nomes das colunas
 		String[] colunas = { "Jogador", "Tempo", "Pontuação"};
 
+		//Adiciona as colunas no modelo
 		for (int i = 0; i < indexes.length; i++) {
 
 			addColumn(colunas[indexes[i] - 1]);
 		}
 
+		//Adiciona as informações do jogador
 		for (Jogador jogador : jogadores) {
 
 			Object[] infoCrua = jogador.getInfo();
 
 			Object[] info = new Object[indexes.length];
 
+			//Adiciona só as informações pedidas
 			for (int i = 0; i < indexes.length; i++) {
 
 				info[i] = infoCrua[indexes[i] - 1];
@@ -55,7 +59,8 @@ public class CustomTableModel extends DefaultTableModel {
 		};
 		tabela.setModel(this);
 
-		pane.setViewportView(tabela);;
+		//Atualiza o scroll
+		pane.setViewportView(tabela);
 
 		return pane;
 	}
